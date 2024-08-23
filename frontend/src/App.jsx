@@ -2,49 +2,17 @@ import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {BrowserRouter} from "react-router-dom";
+import HeaderIn from "./Components/HeaderIn.jsx";
+import HeaderOut from "./Components/HeaderOut.jsx";
 
 function App() {
-    const [count, setCount] = useState(0)
-    const [messages, setMessages] = useState([]);
-    useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/messages', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Network response is not okay")
-                }
-
-                const data = await response.json()
-                setMessages(data);
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        fetchMessages()
-    }, [])
-
+    localStorage.setItem('userToken', 'haha')
+    // localStorage.clear()
     return (
-        <>
-            <div>
-<h1> Inbox:</h1>
-<ul>
-    {messages.map(message => (
-        <li key={message.id}>
-            <strong>From:</strong> {message.id_user_from} <br/>
-            <strong>Subject:</strong> {message.title} <br/>
-            <strong>Message:</strong> {message.message} <br/>
-        </li>
-    ))}
-</ul>
-            </div>
-
-        </>
+        <BrowserRouter>
+            {localStorage.getItem('userToken') ? <HeaderIn/> : <HeaderOut/>}
+        </BrowserRouter>
     )
 }
-
 export default App
