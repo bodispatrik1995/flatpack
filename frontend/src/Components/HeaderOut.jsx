@@ -1,9 +1,10 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 function HeaderOut(props) {
     return (
         <div>
-            <button> Log In!</button>
+            <button><Link to={'/login'}> Log In!</Link></button>
             <button> Sign in!</button>
         </div>
     );
