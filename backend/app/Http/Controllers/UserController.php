@@ -95,7 +95,7 @@ class UserController extends Controller
         $name = $request->input('name');
         $password = $request->input('password');
 
-        $newUserId = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
+            $newUserId = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
 
         //TODO not allow user to register on existing email address
 
