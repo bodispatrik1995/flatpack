@@ -5,6 +5,8 @@ import './App.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HeaderIn from "./Components/HeaderIn.jsx";
 import HeaderOut from "./Components/HeaderOut.jsx";
+import MainPage from "./Components/MainPage.jsx";
+import LogInForm from "./Components/LogInForm.jsx";
 
 function App() {
     const [user, setUser] = useState(localStorage.getItem('userToken'))
