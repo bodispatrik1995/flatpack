@@ -19,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::get('/messages', [MessageController::class, 'index']);
 Route::get('/properties', [PropertyController::class, 'getAllProperties']);
-Route::post('/addProperty', [PropertyController::class, 'addProperty']);
+Route::post('/addproperty', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
+
