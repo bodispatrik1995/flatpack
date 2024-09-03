@@ -25,6 +25,8 @@ Route::get('/messages', [MessageController::class, 'index']);
 Route::post('/user/login', [UserController::class, 'userLogin']);
 Route::post('/user/register', [UserController::class, 'registerUser']);
 Route::get('/properties', [PropertyController::class, 'getAllProperties']);
+Route::get('/properties/search', [PropertyController::class, 'searchProperty']);
+Route::get('/properties/types', [PropertyController::class, 'getPropertyTypes']);
 Route::post('/addproperty', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
 
