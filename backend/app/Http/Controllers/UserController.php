@@ -11,8 +11,6 @@ class UserController extends Controller
 {
     function userLogin(Request $request){
 
-        //TODO make rules for login
-
         try{
             $validator = Validator::make($request->all(), []);
 
@@ -61,8 +59,6 @@ class UserController extends Controller
         $password = $request->input('password');
 
         $newUserId = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
-
-        //TODO not allow user to register on existing email address
 
         return $newUserId;
     }
