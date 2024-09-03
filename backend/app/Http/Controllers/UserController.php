@@ -86,17 +86,19 @@ class UserController extends Controller
                 ], 500
             );
         }
-        function registerUser(Request $request){
-            $email = $request->input('email');
-            $name = $request->input('name');
-            $password = $request->input('password');
 
-            $newUserId = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
 
-            //TODO not allow user to register on existing email address
+    }
 
-            return $newUserId;
-        }
+    public function registerUser(Request $request){
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $password = $request->input('password');
 
+        $newUserId = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
+
+        //TODO not allow user to register on existing email address
+
+        return $newUserId;
     }
 }
