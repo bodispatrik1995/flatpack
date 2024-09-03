@@ -41,7 +41,7 @@ function Inbox(props) {
 
         </>
     )
-}
+
 }
 
 export default Inbox;
