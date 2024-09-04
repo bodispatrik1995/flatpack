@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Loading from "./Loading.jsx";
 
-function LogInForm(props) {
+function LogInForm() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const navigate = useNavigate()
