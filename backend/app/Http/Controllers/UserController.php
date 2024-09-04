@@ -97,8 +97,6 @@ class UserController extends Controller
         $name = $request->input('username');
         $password = $request->input('password');
 
-        //TODO make password only accepted when aligns with rules
-
         if (User::where('email', $email)->exists()) {
             return response()->json(
                 [
