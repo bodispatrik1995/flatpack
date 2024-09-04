@@ -60,21 +60,16 @@ function LogInForm(props) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label>
-                    E-mail:
-                    <input type="text" onChange={handleEmailChange} />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" onChange={handlePasswordChange} />
-                </label>
-                <button  type="submit">
-                    Sign In
-                </button>
+                <label for={'login-email-input'}>E-mail:</label>
+                <input type="text" id={'login-email-input'} name={'login-email-input'} onChange={handleEmailChange}/>
+                <br/>
+                <label for={'login-password-form'}>Password:</label>
+                <input type="password" id={'login-password-form'} name={'login-password-form'} onChange={handlePasswordChange}/>
+                <br/>
+                <button type="submit">Sign In</button>
             </form>
             {loading ? <Loading/> : ''}
         </div>
-
     );
 }
 
