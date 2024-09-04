@@ -97,9 +97,18 @@ class UserController extends Controller
         $name = $request->input('username');
         $password = $request->input('password');
 
-        $newUser = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
+        //TODO make password only accepted when aligns with rules
 
-        //TODO not allow user to register on existing email address
+        if (User::where('email', $email)->exists()) {
+            return response()->json(
+                [
+                'status' => false,
+                'message' => 'A user with this email already exists!'
+                ], 409
+            );
+        }
+
+        $newUser = User::create(['name' => $name, 'email' => $email, 'password' => $password]);
 
         return response()->json([
             'status' => true,

@@ -41,7 +41,6 @@ function LogInForm(props) {
                         localStorage.setItem('username', data.username);
                         navigate('/');
                         window.location.reload();
-
                     }
                     else if (!data.status){
                         console.error("Backend couldnt found user. Login was unsuccessful")
@@ -60,11 +59,11 @@ function LogInForm(props) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label for={'login-email-input'}>E-mail:</label>
-                <input type="text" id={'login-email-input'} name={'login-email-input'} onChange={handleEmailChange}/>
+                <label htmlFor={'login-email-input'}>E-mail:</label>
+                <input type="text" id={'login-email-input'} required name={'login-email-input'} onChange={handleEmailChange}/>
                 <br/>
-                <label for={'login-password-form'}>Password:</label>
-                <input type="password" id={'login-password-form'} name={'login-password-form'} onChange={handlePasswordChange}/>
+                <label htmlFor={'login-password-form'}>Password:</label>
+                <input type="password" id={'login-password-form'} required name={'login-password-form'} onChange={handlePasswordChange}/>
                 <br/>
                 <button type="submit">Sign In</button>
             </form>
