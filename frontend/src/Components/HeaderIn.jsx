@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 
 function HeaderIn(props) {
     const [user, setUser] = useState(localStorage.getItem('userToken'))
+    const navigate = useNavigate()
     function handleLogOut (){
         localStorage.clear()
+        navigate('/');
+        window.location.reload();
     }
-    console.log("ennek kell kijonnie")
     return (
         <div>
             {/*<button>{localStorage.getItem('userToken')} </button>*/}

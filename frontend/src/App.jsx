@@ -9,7 +9,8 @@ import MainPage from "./Components/MainPage.jsx";
 import LogInForm from "./Components/LogInForm.jsx";
 
 function App() {
-    const [user, setUser] = useState(localStorage.getItem('userToken'))
+    const [user] = useState(localStorage.getItem('userToken'))
+    const [username] = useState(localStorage.getItem('username'))
     window.addEventListener("storage", () => {
         // When local storage changes, dump the list to
         // the console.
@@ -28,6 +29,7 @@ function App() {
         <BrowserRouter>
             {/*{localStorage.getItem('userToken') ? <HeaderIn/> : <HeaderOut/>}*/}
             {user ? <HeaderIn/> : <HeaderOut/>}
+            {username}
             <Routes>
                 <Route path={'/'} element={<MainPage/>} />
                 <Route path={'/login'} element={<LogInForm/>}/>
