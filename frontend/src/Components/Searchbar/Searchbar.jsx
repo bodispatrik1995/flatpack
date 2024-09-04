@@ -28,21 +28,6 @@ console.log(properties)
         const fetchProperties = async (search) => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/properties/search?${search}`);
-                // // Check if the response is OK and handle potential errors
-                // if (!response.ok) {
-                //     throw new Error('Network response was not ok');
-                // }
-                //
-                // // Attempt to parse the JSON response
-                // const text = await response.text();
-                //
-                // // If the response is an empty string or 'NULL', treat it as no data
-                // if (text === 'NULL' || text.trim() === '') {
-                //     setProperties([]); // Set an empty array or handle accordingly
-                //     return;
-                // }
-                // // const foundData = await response.json();
-                // const foundData = JSON.parse(text)
                 const foundData = await  response.json()
                 setProperties(foundData);
             } catch (error) {
@@ -137,6 +122,8 @@ console.log(properties)
             {/*    onChange={handleChange}*/}
             {/*    className="inputs"*/}
             {/*/>*/}
+
+
             </form>
     )
 }
