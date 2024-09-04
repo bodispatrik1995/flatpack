@@ -4,7 +4,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PropertyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,4 +24,5 @@ Route::get('/messages', [MessageController::class, 'index']);
 Route::get('/properties', [PropertyController::class, 'getAllProperties']);
 Route::post('/addproperty', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
+Route::post('/upload_image', [ImageController::class, 'store']);
 
