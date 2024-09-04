@@ -9,11 +9,12 @@ export default function RegisterForm() {
 
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [responseMessage, setResponseMessage] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
-
+        setResponseMessage('');
         fetch('http://127.0.0.1:8000/api/user/register', {
             method: 'POST',
             headers: {
@@ -22,9 +23,6 @@ export default function RegisterForm() {
             body: JSON.stringify({username, email, password}),
         })
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
                 return response.json();
             })
             .then((info) => {
@@ -32,11 +30,13 @@ export default function RegisterForm() {
                     console.log("Registration was successful!");
                     navigate('/login');
                 } else {
+                    setResponseMessage(info.message)
                     console.log("Registration failed:", info.message);
                 }
             })
             .catch((e) => {
                 console.log("ERROR:", e.message);
+                setResponseMessage(e.message);
             })
             .finally(() => {
                 setLoading(false);
@@ -63,17 +63,18 @@ export default function RegisterForm() {
         <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="register-username-input">Username</label>
-                <input type="text" name={'username'} id={'register-username-input'} onChange={setInfo}/>
+                <input type="text" name={'username'} id={'register-username-input'} required onChange={setInfo}/>
                 <br/>
                 <label htmlFor="register-email-input">E-mail</label>
-                <input type="email" name={'email'} id={'register-email-input'} onChange={setInfo}/>
+                <input type="email" name={'email'} id={'register-email-input'} required onChange={setInfo}/>
                 <br/>
                 <label htmlFor="register-password-input">Password</label>
-                <input type="password" name={'password'} id={'register-password-input'} onChange={setInfo}/>
+                <input type="password" name={'password'} id={'register-password-input'} required onChange={setInfo}/>
                 <br/>
                 <input type="submit" value="Register"/>
             </form>
             {loading ? <Loading/> : ''}
+            <h3 className={'errorText'}>{responseMessage}</h3>
         </div>
     );
 }
