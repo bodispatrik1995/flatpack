@@ -7,6 +7,7 @@ import HeaderIn from "./Components/HeaderIn.jsx";
 import HeaderOut from "./Components/HeaderOut.jsx";
 import MainPage from "./Components/MainPage.jsx";
 import LogInForm from "./Components/LogInForm.jsx";
+import RegisterForm from "./Components/RegisterForm.jsx";
 
 function App() {
     const [user] = useState(localStorage.getItem('userToken'))
@@ -33,6 +34,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<MainPage/>} />
                 <Route path={'/login'} element={<LogInForm/>}/>
+                <Route path={'/register'} element={<RegisterForm/>}/>
             </Routes>
         </BrowserRouter>
     )
