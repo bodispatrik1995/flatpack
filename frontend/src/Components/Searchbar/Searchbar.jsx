@@ -7,9 +7,9 @@ import Checkbox from "./Checkbox.jsx";
 function Searchbar(props) {
     const [selectValue, setSelectValue] = useState("Choose Type");
     const [queryParams, setQueryParams] = useSearchParams();
-    const [properties, setProperties] = useState([]);
+    // const [properties, setProperties] = useState([]);
     const [types, setTypes] = useState([])
-console.log(properties)
+// console.log(properties)
     useEffect(() => {
         const fetchPropertyTypes = async () => {
             try {
@@ -29,7 +29,7 @@ console.log(properties)
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/properties/search?${search}`);
                 const foundData = await  response.json()
-                setProperties(foundData);
+                props.changeProperties(foundData);
             } catch (error) {
                 console.error('Error fetching properties:', error);
             }
@@ -58,16 +58,18 @@ console.log(properties)
                 setQueryParams({});
             }}
         >
-            {/*<DropDown*/}
-            {/*    name="type"*/}
-            {/*    className="select"*/}
-            {/*    list={types}*/}
-            {/*    handleChange={(e) => {*/}
-            {/*        handleChange(e);*/}
-            {/*        setSelectValue(e.target.value);*/}
-            {/*    }}*/}
-            {/*    selectValue={selectValue}*/}
-            {/*/>*/}
+            <DropDown
+                name="type"
+                className="select"
+                list={types}
+                handleChange={(e) => {
+                    handleChange(e);
+                    setSelectValue(e.target.text);
+                    console.log(e.target.value + "values")
+
+                }}
+                selectValue={selectValue}
+            />
             <Input
                 name="city"
                 value={formData.city}
