@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('property_id') ->constrained('properties');
             $table->string('name');
-            $table->string('type');
             $table->string('image_path')->nullable();
             $table->timestamps();
         });
