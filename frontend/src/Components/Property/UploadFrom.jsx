@@ -2,8 +2,10 @@ import React from 'react';
 import Input from "../Searchbar/Input.jsx";
 
 function UploadFrom(props) {
+    // console.log(localStorage.getItem('userToken'))
+    const id = localStorage.getItem('userId')
+    console.log(id)
     function handleChange (){
-
     }
     return (
         <div>

@@ -5,17 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    function login(Request $request)
+    {
+        $data = $request->validate([
+            'email' => ['required', 'string', 'exists:users'],
+            'password' => ['required', 'string'],
+        ]);
+        $user = User::where('email', $data['email'])->first();
+        if (!$user || !Hash::check($data['password'], $user->password)) {
+            return response([
+                'message' => 'Bad credentials',
+            ], 401);
+        }
+        $token = $user->createToken('userToken')->plainTextToken;
+        $_SESSION['user'] = $user;
+        return [
+            'user' => $user,
+            'userToken' => $token
+        ];
+    }
     function userLogin(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
-                'username' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'email' => 'required|string|email|max:255|',
+                'password' => 'required|string|min:6',
             ]);
 
             if ($validator->fails()) {
@@ -25,8 +44,6 @@ class UserController extends Controller
                     'errors' => $validator->errors()
                 ], 401);
             }
-
-            //If SQL isn't running, it will say the password is incorrect
 
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return response()->json(
@@ -45,7 +62,8 @@ class UserController extends Controller
                     'status' => true,
                     'message' => 'Login successful!',
                     'token' => $user->createToken('API TOKEN', ['server-update'])->plainTextToken,
-                    'username' => $user->name
+                    'username' => $user->name,
+                    'id' => $user->id
                 ], 200
             );
         } catch (\Throwable $th) {
@@ -59,7 +77,6 @@ class UserController extends Controller
 
 
     }
-
     public function registerUser(Request $request)
     {
         $email = $request->input('email');
@@ -71,14 +88,6 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'validation error',
-                'errors' => $validator->errors()
-            ], 401);
-        }
 
         if($validator->fails()){
             return response()->json([
@@ -105,4 +114,32 @@ class UserController extends Controller
             'newUserId' => $newUser->id
             ],201);
     }
+
+    public function userLogout(Request $request) {
+        if (Auth::check()) {
+            // Get the currently authenticated user's token (Passport or Sanctum)
+            $token = $request->user()->currentAccessToken();
+
+            if ($token) {
+                $token->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Logout successful!'
+                ]);
+            }
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Token not found!'
+            ], 401);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'User wasn\'t authenticated'
+        ], 401);
+    }
+
+
 }
