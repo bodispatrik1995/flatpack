@@ -13,6 +13,7 @@ function HeaderIn(props) {
     return (
         <div>
             {/*<button>{localStorage.getItem('userToken')} </button>*/}
+            <button><Link to={'/'}>Home</Link></button>
             <button onClick={handleLogOut}>Log Out!</button>
             <button><Link to={'/upload'}>Upload</Link></button>
         </div>

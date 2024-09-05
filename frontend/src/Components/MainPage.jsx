@@ -7,7 +7,7 @@ import {useSearchParams} from "react-router-dom";
 
 function MainPage(props) {
     const [properties, setProperties] = useState([]);
-    console.log(properties)
+    // console.log(properties)
     return (
         <div>
             {/*{localStorage.getItem('userToken') ? <HeaderIn/> : <HeaderOut/>}*/}

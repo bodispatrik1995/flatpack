@@ -39,7 +39,11 @@ export default function RegisterForm() {
                         type : 'confirm',
                         messages : ['Registration successful!']
                     })
-                    navigate('/login');
+                    console.log(info)
+                    console.log(info.newUserId)
+                    localStorage.setItem('userToken', info.newUserId)
+                    navigate('/');
+                    window.location.reload()
                 } else {
 
                     console.log("Registration failed:", info);

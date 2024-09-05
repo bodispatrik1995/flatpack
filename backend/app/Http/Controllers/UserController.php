@@ -5,15 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    function login(Request $request)
+    {
+        $data = $request->validate([
+            'email' => ['required', 'string', 'exists:users'],
+            'password' => ['required', 'string'],
+        ]);
+        $user = User::where('email', $data['email'])->first();
+        if (!$user || !Hash::check($data['password'], $user->password)) {
+            return response([
+                'message' => 'Bad credentials',
+            ], 401);
+        }
+        $token = $user->createToken('userToken')->plainTextToken;
+        $_SESSION['user'] = $user;
+        return [
+            'user' => $user,
+            'userToken' => $token
+        ];
+    }
     function userLogin(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
-                'username' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6|confirmed',
             ]);
@@ -45,7 +64,6 @@ class UserController extends Controller
                     'status' => true,
                     'message' => 'Login successful!',
                     'token' => $user->createToken('API TOKEN', ['server-update'])->plainTextToken,
-                    'username' => $user->name
                 ], 200
             );
         } catch (\Throwable $th) {
