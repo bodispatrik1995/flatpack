@@ -35,14 +35,14 @@ function LogInForm() {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data)
-                    if (data){
+                    if (data.status){
                         console.log("login was successful! Backend returned token")
                         const token = data['token'];
                         localStorage.setItem('userToken', data.token);
-
-                        // localStorage.setItem('username', data.user.name);
-                        // navigate('/');
-                        // window.location.reload();
+                        localStorage.setItem('username', data.username);
+                        localStorage.setItem('userId', data.id)
+                        navigate('/');
+                        window.location.reload();
                     }
                     else if (!data.status){
                         console.error("Backend couldnt found user. Login was unsuccessful")

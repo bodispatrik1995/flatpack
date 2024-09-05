@@ -33,8 +33,8 @@ class UserController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'email' => 'required|string|email|max:255|',
+                'password' => 'required|string|min:6',
             ]);
 
             if ($validator->fails()) {
@@ -64,6 +64,8 @@ class UserController extends Controller
                     'status' => true,
                     'message' => 'Login successful!',
                     'token' => $user->createToken('API TOKEN', ['server-update'])->plainTextToken,
+                    'username' => $user->name,
+                    'id' => $user->id
                 ], 200
             );
         } catch (\Throwable $th) {
@@ -77,7 +79,6 @@ class UserController extends Controller
 
 
     }
-
     public function registerUser(Request $request)
     {
         $email = $request->input('email');
