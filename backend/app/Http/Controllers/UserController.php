@@ -45,8 +45,6 @@ class UserController extends Controller
                 ], 401);
             }
 
-            //If SQL isn't running, it will say the password is incorrect
-
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return response()->json(
                     [
@@ -91,14 +89,6 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'validation error',
-                'errors' => $validator->errors()
-            ], 401);
-        }
-
         if($validator->fails()){
             return response()->json([
                 'status' => false,
@@ -124,4 +114,32 @@ class UserController extends Controller
             'newUserId' => $newUser->id
             ],201);
     }
+
+    public function userLogout(Request $request) {
+        if (Auth::check()) {
+            // Get the currently authenticated user's token (Passport or Sanctum)
+            $token = $request->user()->currentAccessToken();
+
+            if ($token) {
+                $token->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Logout successful!'
+                ]);
+            }
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Token not found!'
+            ], 401);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'User wasn\'t authenticated'
+        ], 401);
+    }
+
+
 }
