@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './Components/Css/App.css'
+import './Components/Css/SystemStyles.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HeaderIn from "./Components/HeaderIn.jsx";
 import HeaderOut from "./Components/HeaderOut.jsx";
