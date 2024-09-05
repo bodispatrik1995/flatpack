@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 
 function HeaderIn(props) {
@@ -13,6 +14,7 @@ function HeaderIn(props) {
         <div>
             {/*<button>{localStorage.getItem('userToken')} </button>*/}
             <button onClick={handleLogOut}>Log Out!</button>
+            <button><Link to={'/upload'}>Upload</Link></button>
         </div>
     );
 }

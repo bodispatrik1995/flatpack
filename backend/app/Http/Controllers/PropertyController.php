@@ -24,6 +24,7 @@ class PropertyController extends Controller
         try {
             $title = $request->input('title');
             $description = $request->input('description');
+            $size = $request->input('size');
             $city = $request->input('city');
             $street = $request->input('street');
             $houseNumber = $request->input('house_number');
@@ -44,6 +45,9 @@ class PropertyController extends Controller
             }
             if ($description) {
                 $query->where('description', 'like', '%' . $description . '%');
+            }
+            if ($size){
+                $query->where('size', '=', $size );
             }
             if ($city) {
                 $query->where('city', 'like', '%' . $city . '%');

@@ -3,18 +3,19 @@ import DropDown from "./DropDown.jsx";
 import Input from "./Input.jsx";
 import {useSearchParams} from "react-router-dom";
 import Checkbox from "./Checkbox.jsx";
+import TestDropDown from "./TestDropDown.jsx";
+import NumberInputs from "./NumberInputs.jsx";
 
 function Searchbar(props) {
     const [selectValue, setSelectValue] = useState("Choose Type");
     const [queryParams, setQueryParams] = useSearchParams();
-    const [properties, setProperties] = useState([]);
     const [types, setTypes] = useState([])
-console.log(properties)
     useEffect(() => {
         const fetchPropertyTypes = async () => {
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/properties/types');
                 const foundData = await response.json();
+                // foundData.unshift('Choose a type')
                 setTypes(foundData);
             } catch (error) {
                 console.error('Error fetching property types:', error);
@@ -28,23 +29,8 @@ console.log(properties)
         const fetchProperties = async (search) => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/properties/search?${search}`);
-                // // Check if the response is OK and handle potential errors
-                // if (!response.ok) {
-                //     throw new Error('Network response was not ok');
-                // }
-                //
-                // // Attempt to parse the JSON response
-                // const text = await response.text();
-                //
-                // // If the response is an empty string or 'NULL', treat it as no data
-                // if (text === 'NULL' || text.trim() === '') {
-                //     setProperties([]); // Set an empty array or handle accordingly
-                //     return;
-                // }
-                // // const foundData = await response.json();
-                // const foundData = JSON.parse(text)
-                const foundData = await  response.json()
-                setProperties(foundData);
+                const foundData = await response.json()
+                props.changeProperties(foundData);
             } catch (error) {
                 console.error('Error fetching properties:', error);
             }
@@ -56,7 +42,7 @@ console.log(properties)
 
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         const newFormData = {
             ...formData,
             [name]: value,
@@ -65,24 +51,17 @@ console.log(properties)
 
     };
     return (
-        <form
-            className="searchBar"
-            onReset={(e) => {
-                e.preventDefault();
-                setSelectValue("Choose");
-                setQueryParams({});
-            }}
-        >
-            {/*<DropDown*/}
-            {/*    name="type"*/}
-            {/*    className="select"*/}
-            {/*    list={types}*/}
-            {/*    handleChange={(e) => {*/}
-            {/*        handleChange(e);*/}
-            {/*        setSelectValue(e.target.value);*/}
-            {/*    }}*/}
-            {/*    selectValue={selectValue}*/}
-            {/*/>*/}
+        <form className="flex justify-center">
+            <DropDown
+                name="type"
+                className="select"
+                list={types}
+                handleChange={(e) => {
+                    handleChange(e);
+                    // setSelectValue(e.target.text);
+                }}
+                // selectValue={selectValue}
+            />
             <Input
                 name="city"
                 value={formData.city}
@@ -101,14 +80,14 @@ console.log(properties)
             />
             <Input
                 name="house_number"
-                value={formData.location}
+                value={formData.house_number}
                 type="number"
                 onChange={handleChange}
                 placeholder="Enter House number"
                 className="inputs"
             />
             <Input
-                name="maxPrice"
+                name="price"
                 value={formData.price}
                 type="number"
                 onChange={handleChange}
@@ -124,20 +103,27 @@ console.log(properties)
                 className="inputs"
             />
             <Input
-                name="numberOfRooms"
-                value={formData.numberOfRooms}
+                name="rooms"
+                value={formData.rooms}
                 type="number"
                 onChange={handleChange}
                 placeholder="Enter number of rooms"
                 className="inputs"
             />
+            {/*<NumberInputs onChange={handleChange} name="rooms" value={formData.rooms}/>*/}
             {/*<Checkbox*/}
             {/*    name="garage"*/}
             {/*    type="checkbox"*/}
             {/*    onChange={handleChange}*/}
             {/*    className="inputs"*/}
             {/*/>*/}
-            </form>
+            <button
+                className={'text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '}
+                type={"reset"} onClick={() => setQueryParams('')}>Reset
+            </button>
+
+
+        </form>
     )
 }
 

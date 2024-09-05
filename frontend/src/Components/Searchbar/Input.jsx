@@ -3,7 +3,7 @@ import React from 'react';
 function Input(props) {
     return (
         <div><input
-            className={props.className}
+            className={'h-10 font-mono border-2 text-blue-300 px-3 text-1xl bg-black te flex rounded-lg shadow-sm'}
             name={props.name}
             value={props.value === undefined ? "" : props.value}
             type={props.type}
