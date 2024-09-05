@@ -68,14 +68,6 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'validation error',
-                'errors' => $validator->errors()
-            ], 401);
-        }
-
         if($validator->fails()){
             return response()->json([
                 'status' => false,
@@ -102,14 +94,24 @@ class UserController extends Controller
             ],201);
     }
 
-    public function userLogout(Request $request){
-        if(Auth::check()){
-            $request->user()->toke()->delete();
+    public function userLogout(Request $request) {
+        if (Auth::check()) {
+            // Get the currently authenticated user's token (Passport or Sanctum)
+            $token = $request->user()->currentAccessToken();
+
+            if ($token) {
+                $token->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Logout successful!'
+                ]);
+            }
 
             return response()->json([
-                'status' => true,
-                'message' => 'Logout successful!'
-            ]);
+                'status' => false,
+                'message' => 'Token not found!'
+            ], 401);
         }
 
         return response()->json([
@@ -117,4 +119,6 @@ class UserController extends Controller
             'message' => 'User wasn\'t authenticated'
         ], 401);
     }
+
+
 }
