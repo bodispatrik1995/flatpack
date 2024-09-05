@@ -7,6 +7,7 @@ import HeaderIn from "./Components/HeaderIn.jsx";
 import HeaderOut from "./Components/HeaderOut.jsx";
 import MainPage from "./Components/MainPage.jsx";
 import LogInForm from "./Components/LogInForm.jsx";
+import UploadFrom from "./Components/Property/UploadFrom.jsx";
 
 function App() {
     const [user, setUser] = useState(localStorage.getItem('userToken'))
@@ -31,6 +32,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<MainPage/>} />
                 <Route path={'/login'} element={<LogInForm/>}/>
+                <Route path={'/upload'} element={<UploadFrom/>}/>
             </Routes>
         </BrowserRouter>
     )

@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import Option from './Option';
 
 function DropDown(props) {
-    const optionList = Object.entries(props.list).map(([value, text], index) => (
-            <Option value={value} key={index} text={text} />
-    ));
     return (
-        <select value={props.selectValue} className={props.className} name={props.name} onChange={props.handleChange}>
-            {optionList}
+        <select  value={"csuzz"} className={'bg-black text-blue-300 '} name={props.name} onChange={props.handleChange}>
+            <option value={''} disabled selected >Choose a type2</option>
+            {(props.list).map((item, index) => {
+                return <option value={item} key={index} className={"block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"}>{item}</option>
+            })}
         </select>
     );
 }
