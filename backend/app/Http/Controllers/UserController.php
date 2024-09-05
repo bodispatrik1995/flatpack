@@ -25,8 +25,6 @@ class UserController extends Controller
                 ], 401);
             }
 
-            //If SQL isn't running, it will say the password is incorrect
-
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return response()->json(
                     [
@@ -102,5 +100,21 @@ class UserController extends Controller
             'message' => 'Registration successful!',
             'newUserId' => $newUser->id
             ],201);
+    }
+
+    public function userLogout(Request $request){
+        if(Auth::check()){
+            $request->user()->toke()->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Logout successful!'
+            ]);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'User wasn\'t authenticated'
+        ], 401);
     }
 }
