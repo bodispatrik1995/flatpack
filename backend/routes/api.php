@@ -5,7 +5,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,4 +29,5 @@ Route::get('/properties/search', [PropertyController::class, 'searchProperty']);
 Route::get('/properties/types', [PropertyController::class, 'getPropertyTypes']);
 Route::post('/add/property', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
+Route::post('/upload_image', [ImageController::class, 'store']);
 

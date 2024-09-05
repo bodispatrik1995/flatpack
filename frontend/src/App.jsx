@@ -1,16 +1,17 @@
 import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './Components/Css/App.css'
+import './Components/Css/SystemStyles.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HeaderIn from "./Components/HeaderIn.jsx";
 import HeaderOut from "./Components/HeaderOut.jsx";
 import MainPage from "./Components/MainPage.jsx";
 import LogInForm from "./Components/LogInForm.jsx";
+import RegisterForm from "./Components/RegisterForm.jsx";
 import UploadFrom from "./Components/Property/UploadFrom.jsx";
 
 function App() {
-    const [user, setUser] = useState(localStorage.getItem('userToken'))
+    const [user] = useState(localStorage.getItem('userToken'))
+    const [username] = useState(localStorage.getItem('username'))
     window.addEventListener("storage", () => {
         // When local storage changes, dump the list to
         // the console.
@@ -29,10 +30,12 @@ function App() {
         <BrowserRouter>
             {/*{localStorage.getItem('userToken') ? <HeaderIn/> : <HeaderOut/>}*/}
             {user ? <HeaderIn/> : <HeaderOut/>}
+            {username}
             <Routes>
                 <Route path={'/'} element={<MainPage/>} />
                 <Route path={'/login'} element={<LogInForm/>}/>
                 <Route path={'/upload'} element={<UploadFrom/>}/>
+                <Route path={'/register'} element={<RegisterForm/>}/>
             </Routes>
         </BrowserRouter>
     )
