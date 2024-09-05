@@ -8,6 +8,7 @@ import MainPage from "./Components/MainPage.jsx";
 import LogInForm from "./Components/LogInForm.jsx";
 import RegisterForm from "./Components/RegisterForm.jsx";
 import UploadFrom from "./Components/Property/UploadFrom.jsx";
+import {Footer} from "./Components/Footer.jsx";
 
 function App() {
     const [user] = useState(localStorage.getItem('userToken'))
@@ -30,13 +31,14 @@ function App() {
         <BrowserRouter>
             {/*{localStorage.getItem('userToken') ? <HeaderIn/> : <HeaderOut/>}*/}
             {user ? <HeaderIn/> : <HeaderOut/>}
-            {username}
+           Username:  {username}
             <Routes>
                 <Route path={'/'} element={<MainPage/>} />
                 <Route path={'/login'} element={<LogInForm/>}/>
                 <Route path={'/upload'} element={<UploadFrom/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
             </Routes>
+            <Footer/>
         </BrowserRouter>
     )
 }

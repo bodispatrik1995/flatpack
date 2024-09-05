@@ -116,7 +116,8 @@ class PropertyController extends Controller
     public function addProperty(Request $request)
     {
         try {
-            $id = \auth('sanctum')->user()->id;
+            $id = \auth('sanctum')->id();
+//            $id = \auth('sanctum')->user()->id;
 //            var_dump($request->house_number);
 
           $property = Property::create([

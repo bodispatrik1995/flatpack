@@ -1,5 +1,6 @@
 import React from 'react';
 import PropertyBox from "./PropertyBox.jsx";
+import {CardDefault} from "./CardDefault.jsx";
 
 function PropertyList(props) {
 
@@ -12,11 +13,12 @@ function PropertyList(props) {
     } else {
 
         return (
-            <div className={'flex flex-wrap '}>
+            <div className={'grid grid-cols-3 justify-evenly gap-10 '}>
                 {props.properties.map((item) => (
-                    <PropertyBox key={item.id} price={item.price} id={item.id}
-                                 address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms}
-                                 size={item.size}/>
+                    <CardDefault price={item.price} address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms} size={item.size} id={item.id} ></CardDefault>
+                    // <PropertyBox key={item.id} price={item.price} id={item.id}
+                    //              address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms}
+                    //              size={item.size}/>
                 ))}
             </div>
         );
