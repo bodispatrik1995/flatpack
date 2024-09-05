@@ -146,7 +146,7 @@ class PropertyController extends Controller
       }
   }
 
-public function deleteProperty ($request)
+public function deleteProperty (Request $request)
 {
     try{
         $id = $request->id;

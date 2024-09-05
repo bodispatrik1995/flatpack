@@ -30,4 +30,4 @@ Route::get('/properties/types', [PropertyController::class, 'getPropertyTypes'])
 Route::post('/add/property', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
 Route::post('/upload_image', [ImageController::class, 'store']);
-
+Route::get('/image/{property_id}', [ImageController::class, 'getFirstPictures']);

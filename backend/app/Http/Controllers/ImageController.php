@@ -29,5 +29,26 @@ class ImageController extends Controller
         }catch (\Exception $e){
             return back()->withErrors(['error' => $e->getMessage()]);
         }
+
     }
+    public function getFirstPictures($property_id)
+    {
+        $image = Image::where('property_id', $property_id)->first();
+
+        if (!$image) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No image found for the given property ID.'
+            ], 404);
+        }
+
+        // Return the path in a format accessible by the frontend
+        $image->image_path = str_replace('public/', 'storage/', $image->image_path);
+
+        return response()->json([
+            'success' => true,
+            'image' => $image->image_path,
+        ], 200);
+    }
+
 }
