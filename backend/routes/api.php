@@ -24,10 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/messages', [MessageController::class, 'index']);
 Route::post('/user/login', [UserController::class, 'userLogin']);
 Route::post('/user/register', [UserController::class, 'registerUser']);
+Route::middleware('auth:sanctum')->post('/user/logout', [UserController::class, 'userLogout']);
 Route::get('/properties', [PropertyController::class, 'getAllProperties']);
 Route::get('/properties/search', [PropertyController::class, 'searchProperty']);
 Route::get('/properties/types', [PropertyController::class, 'getPropertyTypes']);
 Route::post('/add/property', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
 Route::post('/upload_image', [ImageController::class, 'store']);
-
+Route::get('/image/{property_id}', [ImageController::class, 'getFirstPictures']);

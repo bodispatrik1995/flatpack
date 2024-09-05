@@ -12,7 +12,7 @@ class PropertyController extends Controller
     {
         try {
 
-            $properties = Property::all();
+        $properties = Property::all();
 
             return response()->json($properties, 200);
         } catch (\Exception $e) {
@@ -137,7 +137,7 @@ class PropertyController extends Controller
               'facing' => $request->facing,
               'price' => $request->price,
           ]);
-//    var_dump($property->id);
+
           return response()->json([
               'status' => true,
               'message' => 'Property added successfully',
@@ -150,16 +150,16 @@ class PropertyController extends Controller
         }
     }
 
-    public function deleteProperty($request)
-    {
-        try {
-            $id = $request->id;
-            Property::where('id', $id)->delete();
-            return response()->json(['message' => 'Property deleted successfully']);
-        } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage()], 500);
-        }
-
+public function deleteProperty ($request)
+{
+    try{
+        $id = $request->id;
+        Property::where('id', $id)->delete();
+        return response()->json(['message' => 'Property deleted successfully']);
+    }catch(Exception $e){
+        return response()->json(["error" => $e->getMessage()], 500);
     }
+
+}
 
 }

@@ -14,7 +14,7 @@ function PropertyList(props) {
         return (
             <div className={'flex flex-wrap '}>
                 {props.properties.map((item) => (
-                    <PropertyBox key={item.id} price={item.price}
+                    <PropertyBox key={item.id} price={item.price} id={item.id}
                                  address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms}
                                  size={item.size}/>
                 ))}
