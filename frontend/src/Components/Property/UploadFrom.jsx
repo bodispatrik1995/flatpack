@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Input} from "@material-tailwind/react";
+import {Checkbox, Input} from "@material-tailwind/react";
 // import Input from "../Searchbar/Input.jsx";
 
 function UploadFrom(props) {
@@ -11,7 +11,7 @@ function UploadFrom(props) {
         property_id: propertyId
 
     })
-    console.log(token)
+    // console.log(token)
     const [formValues, setFormValues] = useState({
         title: '',
         description: '',
@@ -25,7 +25,7 @@ function UploadFrom(props) {
         building_material: '',
         type: '',
         plot_size: '',
-        garage: false,
+        garage: '',
         facing: '',
         price: '',
         // addImage: null,
@@ -44,7 +44,7 @@ function UploadFrom(props) {
     }
 
     const id = localStorage.getItem('userId');
-    console.log(id);
+    // console.log(id);
 
     function handleChangeImg(e) {
         const {name, files}= e.target
@@ -59,9 +59,16 @@ function UploadFrom(props) {
 
         setFormValues(prevValues => ({
             ...prevValues,
-            [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
+            [name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,
         }));
     };
+    const handleChangeToCheckbox = (event) => {
+        setFormValues(prevValues => ({
+            ...prevValues,
+            garage: event.target.checked
+        }))
+    }
+    // console.log(formValues)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -89,7 +96,7 @@ function UploadFrom(props) {
 
     };
 
-    console.log(imageValues)
+    // console.log(imageValues)
     return (
         <div>
             <h1>This is where you can upload a new property!</h1>
@@ -119,8 +126,16 @@ function UploadFrom(props) {
                        value={formValues.type}/>
                 <Input color={"black"} label={'Plot size'} name={'plot_size'} type={"number"} onChange={handleChange}
                        value={formValues.plot_size}/>
-                <Input color={"black"} label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChange}
-                       value={formValues.garage}/>
+                {/*<Checkbox label={'Garage'} onChange={handleChange}/>*/}
+                <div className="flex items-center mb-4">
+                    <label htmlFor="garage"
+                           className="ms-2 text-sm mx-2 font-medium text-gray-900 dark:text-gray-300">Garage   </label>
+                    <input id="garage" type="checkbox" value="" onChange={handleChangeToCheckbox}
+                           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+
+                </div>
+                {/*<Input color={"black"} label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChange}*/}
+                {/*       value={formValues.garage}/>*/}
                 <Input color={"black"} label={'Facing'} name={'facing'} type={"text"} onChange={handleChange}
                        value={formValues.facing}/>
                 <Input color={"black"} label={'Price $'} name={'price'} type={"number"} onChange={handleChange}

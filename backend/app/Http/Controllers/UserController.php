@@ -10,25 +10,25 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    function login(Request $request)
-    {
-        $data = $request->validate([
-            'email' => ['required', 'string', 'exists:users'],
-            'password' => ['required', 'string'],
-        ]);
-        $user = User::where('email', $data['email'])->first();
-        if (!$user || !Hash::check($data['password'], $user->password)) {
-            return response([
-                'message' => 'Bad credentials',
-            ], 401);
-        }
-        $token = $user->createToken('userToken')->plainTextToken;
-        $_SESSION['user'] = $user;
-        return [
-            'user' => $user,
-            'userToken' => $token
-        ];
-    }
+//    function login(Request $request)
+//    {
+//        $data = $request->validate([
+//            'email' => ['required', 'string', 'exists:users'],
+//            'password' => ['required', 'string'],
+//        ]);
+//        $user = User::where('email', $data['email'])->first();
+//        if (!$user || !Hash::check($data['password'], $user->password)) {
+//            return response([
+//                'message' => 'Bad credentials',
+//            ], 401);
+//        }
+//        $token = $user->createToken('userToken')->plainTextToken;
+//        $_SESSION['user'] = $user;
+//        return [
+//            'user' => $user,
+//            'userToken' => $token
+//        ];
+//    }
     function userLogin(Request $request)
     {
         try {
