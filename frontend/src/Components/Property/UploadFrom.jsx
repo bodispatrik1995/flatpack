@@ -7,7 +7,6 @@ function UploadFrom(props) {
     const token = localStorage.getItem('userToken');
     const navigate = useNavigate();
 
-    const [name, setName] = useState('name')
     const [formValues, setFormValues] = useState({
         title: '',
         description: '',
@@ -26,7 +25,7 @@ function UploadFrom(props) {
         price: '',
     });
 
-    async function fetchPropertyImg() {
+   /*async function fetchPropertyImg() {
         if(!image_path || !propertyId){
             console.error("image path or property id is missing");
             console.log(image_path);
@@ -54,7 +53,7 @@ function UploadFrom(props) {
     const handleChangeImg = (e) => {
         setImage_path(e.target.files[0]); // Set the file directly
     };
-
+*/
 
     const handleChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -122,7 +121,6 @@ function UploadFrom(props) {
                 <Input label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChange} value={formValues.garage} />
                 <Input label={'Facing'} name={'facing'} type={"text"} onChange={handleChange} value={formValues.facing} />
                 <Input label={'Price $'} name={'price'} type={"number"} onChange={handleChange} value={formValues.price} />
-                <Input label={'Pictures'} name={'image_path'} type={"file"} onChange={handleChangeImg} />
                 <button type={"submit"}>Upload</button>
 
             </form>
