@@ -15,10 +15,10 @@ function PropertyList(props) {
         return (
             <div className={'grid grid-cols-3 justify-evenly gap-10 '}>
                 {props.properties.map((item) => (
-                    <CardDefault price={item.price} address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms} size={item.size} id={item.id} ></CardDefault>
-                   /* <PropertyBox key={item.id} price={item.price} id={item.id}
-                                  address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms}
-                                  size={item.size}/>*/
+                    <CardDefault price={item.price} address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms} size={item.size} id={item.id} key={item.id} ></CardDefault>
+                    // <PropertyBox key={item.id} price={item.price} id={item.id}
+                    //              address={item.city + " " + item.street + " " + item.house_number} rooms={item.rooms}
+                    //              size={item.size}/>
                 ))}
             </div>
         );

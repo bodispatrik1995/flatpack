@@ -12,7 +12,7 @@ class PropertyController extends Controller
     {
         try {
 
-        $properties = Property::all();
+            $properties = Property::all();
 
             return response()->json($properties, 200);
         } catch (\Exception $e) {
@@ -120,47 +120,61 @@ class PropertyController extends Controller
 //            $id = \auth('sanctum')->user()->id;
 //            var_dump($request->house_number);
 
-          $property = Property::create([
-              'title' => $request->title,
-              'user_id' => $id,
-              'description' => $request->description,
-              'size' => $request->size,
-              'city' => $request->city,
-              'street' => $request->street,
-              'house_number' => $request->house_number,
-              'rooms' => $request->rooms,
-              'bathroom_count' => $request->bathroom_count,
-              'floor' => $request->floor,
-              'building_material' => $request->building_material,
-              'type' => $request->type,
-              'plot_size' => $request->plot_size,
-              'garage' => $request->garage,
-              'facing' => $request->facing,
-              'price' => $request->price,
-          ]);
+            $property = Property::create([
+                'title' => $request->title,
+                'user_id' => $id,
+                'description' => $request->description,
+                'size' => $request->size,
+                'city' => $request->city,
+                'street' => $request->street,
+                'house_number' => $request->house_number,
+                'rooms' => $request->rooms,
+                'bathroom_count' => $request->bathroom_count,
+                'floor' => $request->floor,
+                'building_material' => $request->building_material,
+                'type' => $request->type,
+                'plot_size' => $request->plot_size,
+                'garage' => $request->garage,
+                'facing' => $request->facing,
+                'price' => $request->price,
+            ]);
 
-          return response()->json([
-              'status' => true,
-              'message' => 'Property added successfully',
-              'propertyId' => $property->id,
-              $property,
+            return response()->json([
+                'status' => true,
+                'message' => 'Property added successfully',
+                'propertyId' => $property->id,
+                $property,
 
-          ], 200);
-      } catch (\Exception $e) {
+            ], 200);
+        } catch (\Exception $e) {
             return response()->json(["error" => $e->getMessage()], 500);
         }
     }
 
-public function deleteProperty ($request)
-{
-    try{
-        $id = $request->id;
-        Property::where('id', $id)->delete();
-        return response()->json(['message' => 'Property deleted successfully']);
-    }catch(Exception $e){
-        return response()->json(["error" => $e->getMessage()], 500);
-    }
+    public function deleteProperty($request)
+    {
+        try {
+            $id = $request->id;
+            Property::where('id', $id)->delete();
+            return response()->json(['message' => 'Property deleted successfully']);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 500);
+        }
 
-}
+    }
+    public function getProperty($id)
+    {
+        try {
+            $property = Property::where('id', $id)->first();
+            return response()->json([
+                'property'=> $property,
+                'status' => true,
+                'message' => 'Property retrieved successfully',
+                ], 200);
+        }
+        catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 500);
+        }
+    }
 
 }

@@ -62,7 +62,7 @@ export function CardDefault(props) {
                 </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-                <Button><Link to={`/property/${props.id}`} >Read More</Link></Button>
+                <Button onClick={() => localStorage.setItem('propertyId', props.id)}><Link to={`/property/${props.id}`} >Read More</Link></Button>
             </CardFooter>
         </Card>
         </div>

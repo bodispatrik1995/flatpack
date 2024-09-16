@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
 
@@ -5,6 +6,7 @@ function UploadFrom(props) {
     const token = localStorage.getItem('userToken');
     const [propertyId, setPropertyId] = useState(null);
     const [image_path, setImage_path] = useState(null); // Changed to handle the file directly
+
     const [name, setName] = useState('name')
     const [formValues, setFormValues] = useState({
         title: '',
@@ -19,7 +21,7 @@ function UploadFrom(props) {
         building_material: '',
         type: '',
         plot_size: '',
-        garage: false,
+        garage: '',
         facing: '',
         price: '',
     });
@@ -46,18 +48,29 @@ function UploadFrom(props) {
         console.log(data);
     }
 
+
     const handleChangeImg = (e) => {
         setImage_path(e.target.files[0]); // Set the file directly
     };
+
 
     const handleChange = (event) => {
         const { name, value, type, checked } = event.target;
 
         setFormValues(prevValues => ({
             ...prevValues,
+
             [name]: type === 'checkbox' ? checked : value,
+
         }));
     };
+    const handleChangeToCheckbox = (event) => {
+        setFormValues(prevValues => ({
+            ...prevValues,
+            garage: event.target.checked
+        }))
+    }
+    // console.log(formValues)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -91,6 +104,7 @@ function UploadFrom(props) {
                 <Input label={'Description'} name={'description'} type={"text"} onChange={handleChange} value={formValues.description} />
                 <Input label={'Size'} name={'size'} type={"number"} onChange={handleChange} value={formValues.size} />
                 <h1>Address:</h1>
+
                 <Input label={'City'} name={'city'} type={"text"} onChange={handleChange} value={formValues.city} />
                 <Input label={'Street'} name={'street'} type={"text"} onChange={handleChange} value={formValues.street} />
                 <Input label={'House Number'} name={'house_number'} type={"number"} onChange={handleChange} value={formValues.house_number} />
@@ -105,6 +119,7 @@ function UploadFrom(props) {
                 <Input label={'Price $'} name={'price'} type={"number"} onChange={handleChange} value={formValues.price} />
                 <Input label={'Pictures'} name={'image_path'} type={"file"} onChange={handleChangeImg} />
                 <button type={"submit"}>Upload</button>
+
             </form>
         </div>
     );
