@@ -11,7 +11,7 @@ class ImageController extends Controller
     {
         $request->validate([
             'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => 'required',
+           'name' => 'required',
             'property_id' => 'required|exists:properties,id',
         ]);
         try{
