@@ -44,7 +44,9 @@ function Searchbar(props) {
         const {name, value} = event.target;
         console.log("most ment a handlechange")
         console.log(event.target)
+
         const newFormData = {
+
             ...formData,
             [name]: value,
         };
