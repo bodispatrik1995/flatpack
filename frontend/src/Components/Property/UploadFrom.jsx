@@ -1,11 +1,11 @@
 
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
+import {Navigate, useNavigate} from "react-router-dom";
 
 function UploadFrom(props) {
     const token = localStorage.getItem('userToken');
-    const [propertyId, setPropertyId] = useState(null);
-    const [image_path, setImage_path] = useState(null); // Changed to handle the file directly
+    const navigate = useNavigate();
 
     const [name, setName] = useState('name')
     const [formValues, setFormValues] = useState({
@@ -29,6 +29,8 @@ function UploadFrom(props) {
     async function fetchPropertyImg() {
         if(!image_path || !propertyId){
             console.error("image path or property id is missing");
+            console.log(image_path);
+            console.log(propertyId)
             return;
         }
         const formData = new FormData();
@@ -86,10 +88,13 @@ function UploadFrom(props) {
         });
 
         const data = await response.json();
+        const propertyID = data.propertyId;
         if (response.ok) {
             console.log("Property uploaded successfully");
-            setPropertyId(data.propertyId);
-            await fetchPropertyImg(); // Upload image after property data
+            if(propertyID){
+                navigate(`/upload/images/${propertyID}`)
+            }
+
         } else {
             console.log("Error in uploading property");
             console.log(data);
