@@ -79,7 +79,7 @@ class PropertyService
         }
 
 
-        return $query->get();
+        return $query;
     }
 
     public function getPropertyTypes()
