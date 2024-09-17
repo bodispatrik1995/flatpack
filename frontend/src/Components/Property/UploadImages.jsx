@@ -4,7 +4,6 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 
 function UploadImages() {
     const [imageFiles, setImageFiles] = useState([]);
-    const token = localStorage.getItem('userToken');
     const navigate = useNavigate();
     const propertyId = useParams().id;
 
@@ -43,7 +42,7 @@ function UploadImages() {
         console.log(data);
 
         if (response.ok) {
-            console.log("Images uploaded successfully");
+           alert("The pictures uploaded")
             // You can navigate somewhere after successful upload
         } else {
             console.log("Error in uploading images", data);

@@ -25,35 +25,7 @@ function UploadFrom(props) {
         price: '',
     });
 
-   /*async function fetchPropertyImg() {
-        if(!image_path || !propertyId){
-            console.error("image path or property id is missing");
-            console.log(image_path);
-            console.log(propertyId)
-            return;
-        }
-        const formData = new FormData();
-        formData.append('image_path', image_path);
-        formData.append('name', "name");
-        formData.append('property_id',propertyId)
 
-        const response = await fetch('http://127.0.0.1:8000/api/upload_image', {
-            method: "POST",
-            headers: {
-                "Accept": "application/json", // Only Accept header is needed
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-        console.log(data);
-    }
-
-
-    const handleChangeImg = (e) => {
-        setImage_path(e.target.files[0]); // Set the file directly
-    };
-*/
 
     const handleChange = (event) => {
         const { name, value, type, checked } = event.target;
