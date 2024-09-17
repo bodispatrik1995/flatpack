@@ -10,6 +10,7 @@ import RegisterForm from "./Components/RegisterForm.jsx";
 import UploadFrom from "./Components/Property/UploadFrom.jsx";
 import {Footer} from "./Components/Footer.jsx";
 import PropertyCard from "./Components/Property/PropertyCard.jsx";
+import UploadImages from "./Components/Property/UploadImages.jsx";
 
 function App() {
     const [user] = useState(localStorage.getItem('userToken'))
@@ -39,6 +40,7 @@ function App() {
                 <Route path={'/'} element={<MainPage/>} />
                 <Route path={'/login'} element={<LogInForm/>}/>
                 <Route path={'/upload'} element={<UploadFrom/>}/>
+                <Route path={'/upload/images/:id'} element={<UploadImages/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
                 <Route path={'/property/:id'} element={<PropertyCard id={propertyId}/>}/>
             </Routes>
