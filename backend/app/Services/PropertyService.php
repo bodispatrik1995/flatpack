@@ -10,7 +10,7 @@ class PropertyService
 {
     public function getAll()
     {
-           return $properties = Property::all();
+           return  Property::all();
     }
 
     public function search(Request $request){
