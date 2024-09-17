@@ -37,8 +37,12 @@ class PropertyController extends Controller
 
            $properties = $this->propertyService->search($request);
 
-           if($properties){
-               return response()->json($properties);
+            $numberOfGetProperties = 9;
+            $pageNumber = ceil($properties->count() / $numberOfGetProperties);
+            $properties->paginate($numberOfGetProperties);
+
+            if($properties){
+               return response()->json(['properties' => $properties, 'pageNumber' => $pageNumber]);
            }else{
                return response()->json([
                    'success' => false,
@@ -127,6 +131,14 @@ class PropertyController extends Controller
             }
 
 
+    }
+
+    public function getPropertiesNumber()
+    {
+        $properties = Property::all()->count();
+//        $propertiesNumber = Property::->count();
+//        var_dump($properties);
+        return response()->json($properties, 200);
     }
 
 }
