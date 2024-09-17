@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 function UploadImages() {
     const [imageFiles, setImageFiles] = useState([]);
-
     const token = localStorage.getItem('userToken');
     const navigate = useNavigate();
+    const propertyId = useParams().id;
 
-    const propertyId = useParams();
-    // Handle image selection
     const handleImageChange = (e) => {
-        setImageFiles([...e.target.files]); // Store selected images in an array
+        setImageFiles([...e.target.files]);
     };
 
     // Fetch and upload multiple images
@@ -27,16 +25,15 @@ function UploadImages() {
 
         // Loop through each image and append to formData
         imageFiles.forEach((file, index) => {
-            formData.append(`image_path`, file);
-            formData.append('name', `${index + 1}`);
+            formData.append(`image_path[]`, file);
+            formData.append('name', `picture ${index + 1}`);
         });
 
         formData.append('property_id', propertyId);
 
-        const response = await fetch('http://127.0.0.1:8000/api/upload_images', {
+        const response = await fetch('http://127.0.0.1:8000/api/upload_image', {
             method: "POST",
             headers: {
-                'Authorization': `Bearer ${token}`,
                 "Accept": "application/json", // Only Accept header is needed
             },
             body: formData,
@@ -66,6 +63,12 @@ function UploadImages() {
                 />
                 <button type="submit">Upload Images</button>
             </form>
+            <div>
+                <button>Finish</button>
+            </div>
+            <Link to={'/upload'}>
+            <button>Back</button>
+               </Link>
         </div>
     );
 }

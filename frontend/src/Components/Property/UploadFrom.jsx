@@ -121,7 +121,7 @@ function UploadFrom(props) {
                 <Input label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChange} value={formValues.garage} />
                 <Input label={'Facing'} name={'facing'} type={"text"} onChange={handleChange} value={formValues.facing} />
                 <Input label={'Price $'} name={'price'} type={"number"} onChange={handleChange} value={formValues.price} />
-                <button type={"submit"}>Upload</button>
+                <button type={"submit"}>Next</button>
 
             </form>
         </div>
