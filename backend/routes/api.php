@@ -32,5 +32,8 @@ Route::post('/add/property', [PropertyController::class, 'addProperty']);
 Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deleteProperty']);
 Route::post('/upload_image', [ImageController::class, 'store']);
 Route::get('/image/{property_id}', [ImageController::class, 'getFirstPictures']);
+Route::get('/images/{property_id}', [ImageController::class, 'getImages']);//Postmanben nézd a frontend előtt működik!
+
 Route::get('/property/{property_id}', [PropertyController::class, 'getProperty']);
 Route::get('/owner/{user_id}', [UserController::class, 'getUserNameAndEmail']);
+Route::get('/properties/number', [PropertyController::class, 'getPropertiesNumber']);

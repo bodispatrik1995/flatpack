@@ -24,21 +24,23 @@ function Searchbar(props) {
     useEffect(() => {
         const fetchProperties = async (search) => {
             try {
+                clickChange(props.page)
                 const response = await fetch(`http://127.0.0.1:8000/api/properties/search?${search}`);
                 const foundData = await response.json()
-                props.changeProperties(foundData);
+                props.changePageNumber(foundData.pageNumber)
+                props.changeProperties(foundData.properties);
             } catch (error) {
                 console.error('Error fetching properties:', error);
             }
         };
 
         fetchProperties(queryParams.toString());
-    }, [queryParams]);
+    }, [queryParams, props.page]);
     const formData = Object.fromEntries(queryParams.entries());
-
     const handleChangeDropDown = (value) => {
         setSelectedType(value);
-        const newFormData = { ...formData, type: value };
+        const newFormData = {...formData, type: value};
+        props.changePage(1);
         setQueryParams(newFormData);
     };
 
@@ -48,27 +50,43 @@ function Searchbar(props) {
             ...formData,
             [name]: value,
         };
+        props.changePage(1);
         setQueryParams(newFormData);
 
     };
+    const clickChange = (number) => {
+        const newFormData = {
+            ...formData,
+            page: number
+        }
+        setQueryParams(newFormData)
+
+    }
     return (
         <form className="flex justify-center">
 
-               <Select color={'purple'} label={'Select Type'} name={'type'} value={selectedType} onChange={handleChangeDropDown}>
-                   {types ? types.map((type) => {
-                       return <Option value={type} key={type}>{type}</Option>
-                   }) : <Option> Nothing</Option>}
-               </Select>
-            <Input color={"black"} label={'City'} name={'city'} value={formData.city || ''} type={"text"} onChange={handleChange} />
-            <Input color={"black"} label={'Street'} name={'street'} value={formData.street || ''} type={"text"} onChange={handleChange}/>
-            <Input color={"black"} label={"House Number"} name={'house_number'} value={formData.house_number || ''} type={"number"} onChange={handleChange}/>
-            <Input color={"black"} label={"Max Price"} name={'price'} value={formData.price || ''} type={"number"} onChange={handleChange}/>
-            <Input color={"black"} label={"Max Size"} name={'size'} value={formData.size || ''} type={"number"} onChange={handleChange}/>
-            <Input color={"black"} label={"Number of rooms"} name={"rooms"} value={formData.rooms || ''} type={"number"} onChange={handleChange}/>
-                <button
-                    className={'text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '}
-                    type={"reset"} onClick={() => setQueryParams('')}>Reset
-                </button>
+            <Select color={'purple'} label={'Select Type'} name={'type'} value={selectedType}
+                    onChange={handleChangeDropDown}>
+                {types ? types.map((type) => {
+                    return <Option value={type} key={type}>{type}</Option>
+                }) : <Option> Nothing</Option>}
+            </Select>
+            <Input color={"black"} label={'City'} name={'city'} value={formData.city || ''} type={"text"}
+                   onChange={handleChange}/>
+            <Input color={"black"} label={'Street'} name={'street'} value={formData.street || ''} type={"text"}
+                   onChange={handleChange}/>
+            <Input color={"black"} label={"House Number"} name={'house_number'} value={formData.house_number || ''}
+                   type={"number"} onChange={handleChange}/>
+            <Input color={"black"} label={"Max Price"} name={'price'} value={formData.price || ''} type={"number"}
+                   onChange={handleChange}/>
+            <Input color={"black"} label={"Max Size"} name={'size'} value={formData.size || ''} type={"number"}
+                   onChange={handleChange}/>
+            <Input color={"black"} label={"Number of rooms"} name={"rooms"} value={formData.rooms || ''} type={"number"}
+                   onChange={handleChange}/>
+            <button
+                className={'text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '}
+                type={"reset"} onClick={() => setQueryParams('')}>Reset
+            </button>
         </form>
     )
 }

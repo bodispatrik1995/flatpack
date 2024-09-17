@@ -6,29 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-//    function login(Request $request)
-//    {
-//        $data = $request->validate([
-//            'email' => ['required', 'string', 'exists:users'],
-//            'password' => ['required', 'string'],
-//        ]);
-//        $user = User::where('email', $data['email'])->first();
-//        if (!$user || !Hash::check($data['password'], $user->password)) {
-//            return response([
-//                'message' => 'Bad credentials',
-//            ], 401);
-//        }
-//        $token = $user->createToken('userToken')->plainTextToken;
-//        $_SESSION['user'] = $user;
-//        return [
-//            'user' => $user,
-//            'userToken' => $token
-//        ];
-//    }
     function getUserNameAndEmail($user_id){
         $id = $user_id;
 
@@ -42,7 +24,6 @@ class UserController extends Controller
             ]
         );
     }
-
 
     function userLogin(Request $request)
     {
@@ -82,10 +63,13 @@ class UserController extends Controller
                 ], 200
             );
         } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
             return response()->json(
                 [
                     'status' => false,
-                    'message' => $th->getMessage()
+                    'message' => "Server side error!"
                 ], 500
             );
         }

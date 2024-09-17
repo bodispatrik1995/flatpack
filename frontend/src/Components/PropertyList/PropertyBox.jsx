@@ -6,7 +6,7 @@ function PropertyBox(props) {
     const [error, setError] = useState(null); // State to handle errors
 
      const imgUrl = async () => {
-         try {
+         // try {
              const response = await fetch(`http://127.0.0.1:8000/api/image/${props.id}`);
              const data = await response.json();
 
@@ -15,12 +15,12 @@ function PropertyBox(props) {
              } else {
                  setImg('https://kep.cdn.indexvas.hu/1/0/2098/20980/209807/20980782_1335884_a378a0520a6450953bd777efc34d0fe3_wm.jpg')
              }
-         } catch (err) {
-             setImg('https://kep.cdn.indexvas.hu/1/0/2098/20980/209807/20980782_1335884_a378a0520a6450953bd777efc34d0fe3_wm.jpg')
-             setError('Error fetching image');
-         } finally {
+         // } catch (err) {
+         //     setImg('https://kep.cdn.indexvas.hu/1/0/2098/20980/209807/20980782_1335884_a378a0520a6450953bd777efc34d0fe3_wm.jpg')
+         //     setError('Error fetching image');
+         // } finally {
              setLoading(false);
-         }
+         // }
      };
 
      useEffect(() => {

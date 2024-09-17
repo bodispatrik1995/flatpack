@@ -1,13 +1,12 @@
 
 import React, { useState } from "react";
 import { Input } from "@material-tailwind/react";
+import {Navigate, useNavigate} from "react-router-dom";
 
 function UploadFrom(props) {
     const token = localStorage.getItem('userToken');
-    const [propertyId, setPropertyId] = useState(null);
-    const [image_path, setImage_path] = useState(null); // Changed to handle the file directly
+    const navigate = useNavigate();
 
-    const [name, setName] = useState('name')
     const [formValues, setFormValues] = useState({
         title: '',
         description: '',
@@ -26,32 +25,6 @@ function UploadFrom(props) {
         price: '',
     });
 
-    async function fetchPropertyImg() {
-        if(!image_path || !propertyId){
-            console.error("image path or property id is missing");
-            return;
-        }
-        const formData = new FormData();
-        formData.append('image_path', image_path);
-        formData.append('name', "name");
-        formData.append('property_id',propertyId)
-
-        const response = await fetch('http://127.0.0.1:8000/api/upload_image', {
-            method: "POST",
-            headers: {
-                "Accept": "application/json", // Only Accept header is needed
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-        console.log(data);
-    }
-
-
-    const handleChangeImg = (e) => {
-        setImage_path(e.target.files[0]); // Set the file directly
-    };
 
 
     const handleChange = (event) => {
@@ -86,10 +59,13 @@ function UploadFrom(props) {
         });
 
         const data = await response.json();
+        const propertyID = data.propertyId;
         if (response.ok) {
             console.log("Property uploaded successfully");
-            setPropertyId(data.propertyId);
-            await fetchPropertyImg(); // Upload image after property data
+            if(propertyID){
+                navigate(`/upload/images/${propertyID}`)
+            }
+
         } else {
             console.log("Error in uploading property");
             console.log(data);
@@ -117,8 +93,7 @@ function UploadFrom(props) {
                 <Input label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChange} value={formValues.garage} />
                 <Input label={'Facing'} name={'facing'} type={"text"} onChange={handleChange} value={formValues.facing} />
                 <Input label={'Price $'} name={'price'} type={"number"} onChange={handleChange} value={formValues.price} />
-                <Input label={'Pictures'} name={'image_path'} type={"file"} onChange={handleChangeImg} />
-                <button type={"submit"}>Upload</button>
+                <button type={"submit"}>Next</button>
 
             </form>
         </div>
