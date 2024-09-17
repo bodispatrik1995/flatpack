@@ -23,4 +23,17 @@ class ImageService
  public function getIndexPictures($property_id){
      return  Image::where('property_id', $property_id)->first();
  }
+
+    public function getPictures($property_id)
+    {
+        $images = Image::where('property_id', $property_id)->get();
+
+        $images->transform(function ($image) {
+            $image->image_path = str_replace('public/', 'storage/', $image->image_path);
+            return $image;
+        });
+
+        return response()->json($images);
+    }
+
 }

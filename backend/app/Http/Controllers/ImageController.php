@@ -55,6 +55,19 @@ class ImageController extends Controller
         ], 200);
     }
 
-
+    public function getImages($property_id){
+        $images[] = $this->imageService->getPictures($property_id);
+        if($images){
+            return response()->json([
+                'success' => true,
+                'images' => $images,
+            ],200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'No image found for the given property ID.'
+            ], 404);
+        }
+    }
 
 }
