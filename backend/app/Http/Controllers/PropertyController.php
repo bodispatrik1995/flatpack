@@ -86,10 +86,13 @@ class PropertyController extends Controller
             if ($price) {
                 $query->where('price', '<=', $price);
             }
+            $numberOfGetProperties = 9;
+            $pageNumber = ceil($query->count() / $numberOfGetProperties);
+            $query->paginate($numberOfGetProperties);
 
             $properties = $query->get();
 
-            return response()->json($properties, 200);
+            return response()->json(['properties' => $properties, 'pageNumber' => $pageNumber], 200);
 
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while searching properties.', 'message' => $e->getMessage()], 500);
@@ -175,6 +178,14 @@ class PropertyController extends Controller
         catch (Exception $e) {
             return response()->json(["error" => $e->getMessage()], 500);
         }
+    }
+
+    public function getPropertiesNumber()
+    {
+        $properties = Property::all()->count();
+//        $propertiesNumber = Property::->count();
+//        var_dump($properties);
+        return response()->json($properties, 200);
     }
 
 }
