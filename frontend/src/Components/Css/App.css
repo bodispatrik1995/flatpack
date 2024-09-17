@@ -1,5 +1,6 @@
 body{
   background: #747bff;
+  color: white;
 }
 
 #root {
@@ -43,4 +44,38 @@ body{
 
 .read-the-docs {
   color: #888;
+}
+
+.property-card{
+
+}
+
+.apply-square-background{
+  background-color: #9ca3af;
+  padding: 30px;
+  border-radius: 10px;
+}
+.property-owner{
+
+}
+
+.button{
+  background: #2a5192;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+
+.property-data-table{
+  width: 100%;
+}
+
+td, th {
+  padding: 10px;
+  border: white solid 1px;
+  border-radius: 10px;
+}
+h1{
+  padding: 10px;
 }
