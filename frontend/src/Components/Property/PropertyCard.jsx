@@ -3,6 +3,7 @@ import Loading from "../Loading.jsx";
 
 function PropertyCard(props) {
     const [property, setProperty] = useState(null);
+    const [owner, setOwner] = useState(null)
     useEffect(() => {
         const fetchProperty = async () => {
             try {
@@ -10,7 +11,14 @@ function PropertyCard(props) {
                 const foundData = await response.json();
                 // foundData.unshift('Choose a type')
                 console.log(foundData)
-                setProperty(foundData.property);
+                await setProperty(foundData.property);
+
+                const userResponse = await fetch(`http://127.0.0.1:8000/api/owner/${foundData.property['user_id']}`);
+                const user = await userResponse.json();
+
+                user.user !== null ? setOwner(user.user) : setOwner("N/A");
+                await console.log(owner);
+                await console.log(foundData.property['user_id']);
             } catch (error) {
                 console.error('Error fetching property types:', error);
             }
@@ -18,7 +26,7 @@ function PropertyCard(props) {
 
         fetchProperty();
     }, []);
-    if (!property){
+    if (!property || !owner) {
         return <Loading/>
     } else {
         return (
@@ -92,6 +100,8 @@ function PropertyCard(props) {
                     </div>
                     <div className={"col-span-1 property-owner apply-square-background"}>
                     <h1>Property owner</h1>
+                        <h1>{owner['name']}</h1>
+                        <h1>{owner['email']}</h1>
                     </div>
                 </div>
             </div>

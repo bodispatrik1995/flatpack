@@ -33,3 +33,4 @@ Route::delete('/deleteProperty/{id}', [PropertyController::class, 'deletePropert
 Route::post('/upload_image', [ImageController::class, 'store']);
 Route::get('/image/{property_id}', [ImageController::class, 'getFirstPictures']);
 Route::get('/property/{property_id}', [PropertyController::class, 'getProperty']);
+Route::get('/owner/{user_id}', [UserController::class, 'getUserNameAndEmail']);
