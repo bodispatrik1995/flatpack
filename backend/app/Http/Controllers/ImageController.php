@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+    protected ImageService $imageService;
+
+    public function __construct(){
+        $this->imageService = new ImageService();
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -14,28 +20,25 @@ class ImageController extends Controller
            'name' => 'required',
             'property_id' => 'required|exists:properties,id',
         ]);
-        if($request->hasFile('image_path')){
-            foreach($request->file('image_path') as $image){
-                Image::create([
-                    'image_path' => $image->store('public/images'),
-                    'name' => $request->name,
-                    'property_id'=> $request->property_id
-                ]);
+            $success = $this->imageService->upload($request);
+
+            if($success){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Image Uploaded',
+                    'image'=> $request->file('image_path'),
+                ],200);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Image not Uploaded',
+
+                ],500);
             }
-        }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Image Uploaded',
-                'image'=> $request->file('image_path'),
-
-            ],200);
-
-
     }
     public function getFirstPictures($property_id)
     {
-        $image = Image::where('property_id', $property_id)->first();
+       $image = $this->imageService->getIndexPictures($property_id);
 
         if (!$image) {
             return response()->json([
@@ -44,13 +47,27 @@ class ImageController extends Controller
             ], 404);
         }
 
-        // Return the path in a format accessible by the frontend
         $image->image_path = str_replace('public/', 'storage/', $image->image_path);
 
         return response()->json([
             'success' => true,
             'image' => $image->image_path,
         ], 200);
+    }
+
+    public function getImages($property_id){
+        $images[] = $this->imageService->getPictures($property_id);
+        if($images){
+            return response()->json([
+                'success' => true,
+                'images' => $images,
+            ],200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'No image found for the given property ID.'
+            ], 404);
+        }
     }
 
 }
