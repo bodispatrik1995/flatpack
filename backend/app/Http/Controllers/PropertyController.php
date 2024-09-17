@@ -42,7 +42,7 @@ class PropertyController extends Controller
             $properties->paginate($numberOfGetProperties);
 
             if($properties){
-               return response()->json(['properties' => $properties, 'pageNumber' => $pageNumber]);
+               return response()->json(['properties' => $properties->get(), 'pageNumber' => $pageNumber]);
            }else{
                return response()->json([
                    'success' => false,
