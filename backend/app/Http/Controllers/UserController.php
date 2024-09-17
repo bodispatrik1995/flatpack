@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    function getUserNameAndEmail($user_id){
+        $id = $user_id;
+
+        $user = User::select('id', 'name', 'email')->where('id', $id)->first();
+
+        return response()->json(
+            [
+                'status' => true,
+                'user' => $user,
+                'id' => $id
+            ]
+        );
+    }
+
     function userLogin(Request $request)
     {
         try {
