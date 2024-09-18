@@ -94,6 +94,24 @@ class PropertyService
 
     public function add(Request $request, $user_id)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'size' => 'required|integer',
+            'city' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
+            'house_number' => 'required|integer',
+            'rooms' => 'required|integer',
+            'bathroom_count' => 'required|integer',
+            'floor' => 'required|integer',
+            'building_material' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'plot_size' => 'integer',
+            'garage' => 'required|boolean',
+            'facing' => 'required|string',
+            'price' => 'required|integer',
+
+        ]);
         $property = Property::create([
             'title' => $request->title,
             'user_id' => $user_id,
