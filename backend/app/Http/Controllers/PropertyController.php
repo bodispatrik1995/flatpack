@@ -116,7 +116,7 @@ class PropertyController extends Controller
     {
 
 //        $id = $request->id;
-        var_dump($id);
+//        var_dump($id);
             $property = $this->propertyService->get($id);
             if($property){
                 return response()->json([
