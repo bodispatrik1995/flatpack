@@ -43,7 +43,7 @@ function App() {
                 <Route path={'/upload'} element={<UploadFrom/>}/>
                 <Route path={'/upload/images/:id'} element={<UploadImages/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
-                <Route path={'/property/:id'} element={<PropertyCard id={propertyId}/>}/>
+                <Route path={'/property/:id'} element={<PropertyCard/>}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

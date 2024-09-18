@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
+import {useParams} from "react-router-dom";
 
 function PropertyCard(props) {
     const [property, setProperty] = useState(null);
     const [owner, setOwner] = useState(null)
+    const propertyId = useParams().id
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/property/${props.id}`);
+                const response = await fetch(`http://127.0.0.1:8000/api/property/${propertyId}`);
                 const foundData = await response.json();
                 // foundData.unshift('Choose a type')
                 console.log(foundData)
