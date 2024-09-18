@@ -20,7 +20,7 @@ function UploadFrom(props) {
         building_material: '',
         type: '',
         plot_size: '',
-        garage: '',
+        garage: false,
         facing: '',
         price: '',
     });
@@ -90,7 +90,7 @@ function UploadFrom(props) {
                 <Input label={'Building Material'} name={'building_material'} type={"text"} onChange={handleChange} value={formValues.building_material} />
                 <Input label={'Type'} name={'type'} type={"text"} onChange={handleChange} value={formValues.type} />
                 <Input label={'Plot size'} name={'plot_size'} type={"number"} onChange={handleChange} value={formValues.plot_size} />
-                <Input label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChange} value={formValues.garage} />
+                <Input label={'Garage'} name={'garage'} type={"checkbox"} onChange={handleChangeToCheckbox} value={formValues.garage} />
                 <Input label={'Facing'} name={'facing'} type={"text"} onChange={handleChange} value={formValues.facing} />
                 <Input label={'Price $'} name={'price'} type={"number"} onChange={handleChange} value={formValues.price} />
                 <button type={"submit"}>Next</button>
