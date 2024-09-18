@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Input } from "@material-tailwind/react";
+import {Button, Input} from "@material-tailwind/react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 
 function UploadImages() {
     const [imageFiles, setImageFiles] = useState([]);
-    const navigate = useNavigate();
     const propertyId = useParams().id;
+
+    console.log(propertyId);
 
     const handleImageChange = (e) => {
         setImageFiles([...e.target.files]);
@@ -47,6 +48,7 @@ function UploadImages() {
         } else {
             console.log("Error in uploading images", data);
         }
+        console.log(propertyId);
     };
 
     return (
@@ -63,11 +65,18 @@ function UploadImages() {
                 <button type="submit">Upload Images</button>
             </form>
             <div>
-                <button>Finish</button>
+
+                <Link to={`/property/${propertyId}`} >
+                    <Button onClick={() => localStorage.setItem('propertyId', propertyId)}>
+                        Finish
+                    </Button>
+                </Link>
+
+
             </div>
-            <Link to={'/upload'}>
-            <button>Back</button>
-               </Link>
+            <Link to={`/upload`}>
+                <button>Back</button>
+            </Link>
         </div>
     );
 }
