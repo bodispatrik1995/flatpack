@@ -1,25 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
+import {useParams} from "react-router-dom";
+import OwnButtons from "./OwnButtons.jsx";
 
 function PropertyCard(props) {
     const [property, setProperty] = useState(null);
     const [owner, setOwner] = useState(null)
+    const propertyId = useParams().id
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/property/${props.id}`);
+                const response = await fetch(`http://127.0.0.1:8000/api/property/${propertyId}`);
                 const foundData = await response.json();
                 // foundData.unshift('Choose a type')
-                console.log(foundData)
                 await setProperty(foundData.property);
 
-                if (property){
+                if (foundData) {
                     const userResponse = await fetch(`http://127.0.0.1:8000/api/owner/${foundData.property['user_id']}`);
                     const user = await userResponse.json();
 
                     user.user !== null ? setOwner(user.user) : setOwner("N/A");
-                    await console.log(owner);
-                    await console.log(foundData.property['user_id']);
+                    // await console.log(owner);
+                    // await console.log(foundData.property['user_id']);
                 }
 
 
@@ -33,21 +35,26 @@ function PropertyCard(props) {
 
         fetchProperty();
     }, []);
+
+    function currencyFormat(num) {
+        return '' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+    function checkOwnerIsLogIn (owner){
+        const userId = localStorage.getItem('userId')
+        if (owner){
+            console.log(owner.id)
+            console.log(userId)
+            return owner.id == userId;
+        } else {
+            return false
+        }
+
+    }
+
     if (!property) {
         return <Loading/>
     } else {
         return (
-
-            /*<div className={"grid gap-4 grid-cols-3 grid-rows-4"}>
-                <div className={"apply-square-background row-span-3 col-span-2"}></div>
-                <div className={"apply-square-background row-span-2"}></div>
-                <div className={"apply-square-background"}></div>
-
-
-                <div className={"apply-square-background col-span-2"}></div>
-                <div className={"apply-square-background col-span-1"}></div>
-            </div>*/
-
             <div className={"property-card"}>
                 <div className={"grid gap-4 grid-cols-3 grid-rows-3 Property-headline"}>
                     <div className={"row-span-3 col-span-2 property-images apply-square-background"}>
@@ -55,12 +62,13 @@ function PropertyCard(props) {
                     </div>
                     <div className={"row-span-2 property-quick-data apply-square-background"}>
                         <h1>{property.title}</h1>
-                        <h1>Price: {property.price}$</h1>
+                        <h1>Price: {currencyFormat(property.price)} $</h1>
                         <h1>{property.size}m2</h1>
                     </div>
                     <div className={"property-quick-actions apply-square-background"}>
                         <button className={"button"}>Buy</button>
-                        <button className={"button"}>Contact Owner</button>
+                        {checkOwnerIsLogIn(owner) ? <OwnButtons/> : <button className={'button'}>ez a rossz</button> }
+
                     </div>
                     <div className={"col-span-2 property-data apply-square-background"}>
                         <h1>Property data</h1>
@@ -110,6 +118,7 @@ function PropertyCard(props) {
                             <h1>Property owner</h1>
                             <h1>{owner['name']}</h1>
                             <h1>{owner['email']}</h1>
+                            <button className={"button"}>Contact Owner</button>
                         </div>
                         :
                         <div className={"col-span-1 property-owner apply-square-background"}>
@@ -120,22 +129,6 @@ function PropertyCard(props) {
                 </div>
             </div>
 
-            /*<div
-                className={'my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400"'}>
-
-                <h3 className="text-3xl  leading-tight">
-                    Title:
-                    <small className="text-surface/75 dark:text-white/75"
-                    >{property.title}</small
-                    >
-                </h3>
-                <h3 className="text-3xl font-medium leading-tight">
-                    Size:
-                    <small className="text-surface/75 dark:text-white/75"
-                    >{property.size}</small
-                    >
-                </h3>
-            </div>*/
         );
     }
 }

@@ -72,6 +72,7 @@ function UploadForm(props) {
                        value={formValues.description}/>
                 <Input label="Size" name="size" type="number" onChange={handleChange} value={formValues.size}/>
 
+
                 <h1>Address:</h1>
                 <Input label="City" name="city" type="text" onChange={handleChange} value={formValues.city}/>
                 <Input label="Street" name="street" type="text" onChange={handleChange} value={formValues.street}/>
