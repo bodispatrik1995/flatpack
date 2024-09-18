@@ -22,6 +22,7 @@ function App() {
         // the console.
         setUser(localStorage.getItem('userToken'))
         setPropertyId(localStorage.getItem('propertyId'))
+        console.log(localStorage.getItem('propertyId'))
         console.log(window.localStorage.getItem("sampleList"));
     });
     // console.log(JSON.parse(window.localStorage.getItem("userToken")));
@@ -43,7 +44,7 @@ function App() {
                 <Route path={'/upload'} element={<UploadFrom/>}/>
                 <Route path={'/upload/images/:id'} element={<UploadImages/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
-                <Route path={'/property/:id'} element={<PropertyCard id={propertyId}/>}/>
+                <Route path={'/property/:id'} element={<PropertyCard/>}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

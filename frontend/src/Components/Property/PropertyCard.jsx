@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
+import {useParams} from "react-router-dom";
+import OwnButtons from "./OwnButtons.jsx";
 
 function PropertyCard(props) {
     const [property, setProperty] = useState(null);
     const [images, setImages] = useState(null)
     const [owner, setOwner] = useState(null)
+    const propertyId = useParams().id
     useEffect(() => {
         const fetchProperty = async () => {
             try {
@@ -25,14 +28,11 @@ function PropertyCard(props) {
                 await setOwner(ownerData.user);
                 await console.log(ownerData);
 
-
-                /*
-                const response = await fetch(`http://127.0.0.1:8000/api/property/${props.id}`);
+                const response = await fetch(`http://127.0.0.1:8000/api/property/${propertyId}`);
                 const foundData = await response.json();
-                console.log(foundData)
                 await setProperty(foundData.property);
 
-                if (property){
+                if (foundData) {
                     const userResponse = await fetch(`http://127.0.0.1:8000/api/owner/${foundData.property['user_id']}`);
                     const user = await userResponse.json();
 
@@ -52,6 +52,23 @@ function PropertyCard(props) {
 
         fetchProperty();
     }, []);
+
+
+    function currencyFormat(num) {
+        return '' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+    function checkOwnerIsLogIn (owner){
+        const userId = localStorage.getItem('userId')
+        if (owner){
+            console.log(owner.id)
+            console.log(userId)
+            return owner.id == userId;
+        } else {
+            return false
+        }
+
+    }
+
     if (!property || !owner || !images) {
         return <Loading/>
     } else {
@@ -64,12 +81,13 @@ function PropertyCard(props) {
                     </div>
                     <div className={"row-span-2 property-quick-data apply-square-background"}>
                         <h1>{property.title}</h1>
-                        <h1>Price: {property.price}$</h1>
+                        <h1>Price: {currencyFormat(property.price)} $</h1>
                         <h1>{property.size}m2</h1>
                     </div>
                     <div className={"property-quick-actions apply-square-background"}>
                         <button className={"button"}>Buy</button>
-                        <button className={"button"}>Contact Owner</button>
+                        {checkOwnerIsLogIn(owner) ? <OwnButtons/> : <button className={'button'}>ez a rossz</button> }
+
                     </div>
                     <div className={"col-span-2 property-data apply-square-background"}>
                         <h1>Property data</h1>
@@ -119,6 +137,7 @@ function PropertyCard(props) {
                             <h1>Property owner</h1>
                             <h1>{owner['name']}</h1>
                             <h1>{owner['email']}</h1>
+                            <button className={"button"}>Contact Owner</button>
                         </div>
                         :
                         <div className={"col-span-1 property-owner apply-square-background"}>
