@@ -37,17 +37,6 @@ function PropertyCard(props) {
         return <Loading/>
     } else {
         return (
-
-            /*<div className={"grid gap-4 grid-cols-3 grid-rows-4"}>
-                <div className={"apply-square-background row-span-3 col-span-2"}></div>
-                <div className={"apply-square-background row-span-2"}></div>
-                <div className={"apply-square-background"}></div>
-
-
-                <div className={"apply-square-background col-span-2"}></div>
-                <div className={"apply-square-background col-span-1"}></div>
-            </div>*/
-
             <div className={"property-card"}>
                 <div className={"grid gap-4 grid-cols-3 grid-rows-3 Property-headline"}>
                     <div className={"row-span-3 col-span-2 property-images apply-square-background"}>
