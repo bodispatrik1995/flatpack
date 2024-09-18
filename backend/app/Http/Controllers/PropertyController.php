@@ -112,10 +112,11 @@ class PropertyController extends Controller
 
 
     }
-    public function getProperty(Request $request)
+    public function getProperty($id)
     {
 
-        $id = $request->id;
+//        $id = $request->id;
+        var_dump($id);
             $property = $this->propertyService->get($id);
             if($property){
                 return response()->json([

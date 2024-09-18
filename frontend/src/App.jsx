@@ -21,6 +21,7 @@ function App() {
         // the console.
         setUser(localStorage.getItem('userToken'))
         setPropertyId(localStorage.getItem('propertyId'))
+        console.log(localStorage.getItem('propertyId'))
         console.log(window.localStorage.getItem("sampleList"));
     });
     // console.log(JSON.parse(window.localStorage.getItem("userToken")));
