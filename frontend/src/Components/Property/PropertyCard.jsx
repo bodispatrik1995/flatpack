@@ -37,17 +37,6 @@ function PropertyCard(props) {
         return <Loading/>
     } else {
         return (
-
-            /*<div className={"grid gap-4 grid-cols-3 grid-rows-4"}>
-                <div className={"apply-square-background row-span-3 col-span-2"}></div>
-                <div className={"apply-square-background row-span-2"}></div>
-                <div className={"apply-square-background"}></div>
-
-
-                <div className={"apply-square-background col-span-2"}></div>
-                <div className={"apply-square-background col-span-1"}></div>
-            </div>*/
-
             <div className={"property-card"}>
                 <div className={"grid gap-4 grid-cols-3 grid-rows-3 Property-headline"}>
                     <div className={"row-span-3 col-span-2 property-images apply-square-background"}>
@@ -120,22 +109,6 @@ function PropertyCard(props) {
                 </div>
             </div>
 
-            /*<div
-                className={'my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400"'}>
-
-                <h3 className="text-3xl  leading-tight">
-                    Title:
-                    <small className="text-surface/75 dark:text-white/75"
-                    >{property.title}</small
-                    >
-                </h3>
-                <h3 className="text-3xl font-medium leading-tight">
-                    Size:
-                    <small className="text-surface/75 dark:text-white/75"
-                    >{property.size}</small
-                    >
-                </h3>
-            </div>*/
         );
     }
 }
