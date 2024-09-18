@@ -4,7 +4,6 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 
 function UploadImages() {
     const [imageFiles, setImageFiles] = useState([]);
-    const navigate = useNavigate();
     const propertyId = useParams().id;
 
     console.log(propertyId);
