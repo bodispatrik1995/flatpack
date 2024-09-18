@@ -75,7 +75,7 @@ function UploadImages() {
 
 
             </div>
-            <Link to={'/upload'}>
+            <Link to={`/upload`}>
                 <button>Back</button>
             </Link>
         </div>
