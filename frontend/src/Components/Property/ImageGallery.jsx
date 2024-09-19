@@ -6,7 +6,7 @@ export default function ImageGallery({propertyImages}){
 
     console.log(images)
 
-    const [currentImage, setCurrentImage] = useState(null)
+    const [currentImage, setCurrentImage] = useState(images > 0 ? `http://localhost:8000/${images[currentImageIndex]['image_path']}` : null)
 
     useEffect(()=>{
         if (images.length > 0){
