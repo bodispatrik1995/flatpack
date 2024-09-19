@@ -67,7 +67,7 @@ function PropertyCard(props) {
                     </div>
                     <div className={"property-quick-actions apply-square-background"}>
                         <button className={"button"}>Buy</button>
-                        {checkOwnerIsLogIn(owner) ? <OwnButtons/> : <button className={'button'}>ez a rossz</button> }
+                        {checkOwnerIsLogIn(owner) ? <OwnButtons user_id={localStorage.getItem('userId')} property_id={propertyId}/> : <button className={'button'}>ez a rossz</button> }
 
                     </div>
                     <div className={"col-span-2 property-data apply-square-background"}>
