@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // id as primary key
             $table->unsignedBigInteger('id_user_from')->nullable(); // nullable foreign key to User model
             $table->unsignedBigInteger('id_user_to')->nullable(); // nullable foreign key to User model
+            $table->foreignId('id_property')->nullable();
             $table->string('title'); // string containing the subject of the mail
             $table->text('message'); // text containing the body of the mail
             $table->timestamp('sent')->nullable(); // nullable timestamp for the date and time the mail was sent
@@ -29,6 +30,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+
     public function down(): void
     {
         Schema::dropIfExists('messages');
