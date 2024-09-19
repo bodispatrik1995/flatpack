@@ -1,47 +1,59 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from "react";
+import Loading from "./Loading.jsx";
+import Message from "./Message.jsx";
 
-function Inbox(props) {
-    const [messages, setMessages] = useState([]);
+export default function Inbox(props) {
+
+    const testMessages = [
+        {
+            from : "Sir I' Sell Y' Anything",
+            title : "Yes, it has a piano room as well",
+            message : " "
+        },
+        {
+            from : "Chin Pens kicseng",
+            title : "You buy?",
+            message : "it cheap! get good price!"
+        },
+    ]
+
+    const [user, setUser] = useState(localStorage.getItem('userId') ? localStorage.getItem('userId') : null);
+
+    const [messages, setMessages] = useState([])
+
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/messages', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Network response is not okay")
-                }
-
-                const data = await response.json()
-                setMessages(data);
-            } catch (error) {
-                console.error(error)
-            }
+        setMessages(testMessages)
+        setLoading(false)
+        /*const messagesResponse = fetch('http://localhost:8080/api/user/messages');
+        if (messagesResponse.ok){
+            const messagesData = messagesResponse.json();
+            setMessages(messagesData);
+            setLoading(false);
         }
-        fetchMessages()
-    }, [])
+        else{
+            setMessages([]);
+        }*/
+    }, [user])
+
+    if (loading){
+        return(
+            <div className={"apply-square-background col-span-3"}>
+                <Loading />
+            </div>
+            )
+    }
 
     return (
-        <>
-            <div>
-                <h1> Inbox:</h1>
-                <ul>
-                    {messages.map(message => (
-                        <li key={message.id}>
-                            <strong>From:</strong> {message.id_user_from} <br/>
-                            <strong>Subject:</strong> {message.title} <br/>
-                            <strong>Message:</strong> {message.message} <br/>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-        </>
+        <div className={"message-box apply-square-background col-span-3"}>
+            {
+                messages.map((message) =>
+                    <div className={"message border-dotted border-2 border-sky-500"}>
+                        <Message from={message.owner} message={message.message} title={message.title}></Message>
+                    </div>
+                )
+            }
+        </div>
     )
-
 }
-
-export default Inbox;

@@ -56,4 +56,20 @@ class FavoriteController extends Controller
 
         return response()->json(['message' => 'Property removed from favorites'], 200);
     }
+
+    public function checkIsItIn(Request $request)
+    {
+        $id = \auth('sanctum')->id();
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+        ]);
+        $user = User::find($id);
+        if ($user->favorites()->where('property_id', $request->property_id)->exists()) {
+            return response()->json(['status' => true], 200);
+        } else {
+            return response()->json(['status' => false], 200);
+        }
+
+    }
+
 }
