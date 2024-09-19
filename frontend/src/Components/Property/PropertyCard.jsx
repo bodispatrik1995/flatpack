@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
-import OwnButtons from "./OwnButtons.jsx";
+import FavoriteButton from "./FavoriteButton.jsx";
 
 function PropertyCard() {
     const { id } = useParams();
@@ -89,7 +89,9 @@ function PropertyCard() {
                     </div>
                     <div className={"property-quick-actions apply-square-background"}>
                         <button className={"button"}>Buy</button>
-                        {checkOwnerIsLogIn(owner) ? <OwnButtons user_id={localStorage.getItem('userId')} property_id={propertyId}/> : <button className={'button'}>ez a rossz</button> }
+                        {localStorage.getItem('userToken') ? <FavoriteButton property_id={propertyId}/> : ""}
+                        {/*<FavoriteButton property_id={propertyId}/>*/}
+                        {/*{checkOwnerIsLogIn(owner) ? <FavoriteButton property_id={propertyId}/> : <button className={'button'}>ez a rossz</button> }*/}
 
                     </div>
                     <div className={"col-span-2 property-data apply-square-background"}>

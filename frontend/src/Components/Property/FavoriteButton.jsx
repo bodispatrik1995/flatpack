@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function OwnButtons(props) {
+function FavoriteButton(props) {
     const [favoriteClicked, setFavoriteClicked] = useState(false)
     const token = localStorage.getItem('userToken');
     async function fetchAddFavorites (property_id){
@@ -63,4 +63,4 @@ function OwnButtons(props) {
     );
 }
 
-export default OwnButtons;
+export default FavoriteButton;
