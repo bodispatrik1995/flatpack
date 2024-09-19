@@ -8,6 +8,8 @@ function LogInForm() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
 
+    const [errorMessage, setErrorMessage] = useState('')
+
     function handlePasswordChange(e) {
         setPassword(e.target.value);
     }
@@ -18,6 +20,7 @@ function LogInForm() {
     function handleSubmit(e)  {
         e.preventDefault();
         console.log('setting loading to true');
+        setErrorMessage('');
         setLoading(true);
         console.log('loading state is: ' + loading);
             fetch('http://127.0.0.1:8000/api/user/login', {
@@ -45,6 +48,7 @@ function LogInForm() {
                     }
                     else if (!data.status){
                         console.error("Backend couldnt found user. Login was unsuccessful")
+                        setErrorMessage(data.message);
                     }
                     else{
                         console.error('Fatal error: ' + data.message);
@@ -80,6 +84,7 @@ function LogInForm() {
                 <button type="submit"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign In
                 </button>
+                <h1>{errorMessage}</h1>
                 {loading ? <Loading/> : ""}
             </form>
         </div>
