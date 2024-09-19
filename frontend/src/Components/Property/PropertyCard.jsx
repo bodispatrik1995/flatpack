@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
-import OwnButtons from "./OwnButtons.jsx";
+import FavoriteButton from "./FavoriteButton.jsx";
 
-function PropertyCard(props) {
+function PropertyCard() {
+    const { id } = useParams();
     const [property, setProperty] = useState(null);
     const [images, setImages] = useState(null)
     const [owner, setOwner] = useState(null)
@@ -12,34 +13,36 @@ function PropertyCard(props) {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                console.log(props.id)
-                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${props.id}`)
+                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${id}`)
                 const propertyData = await propertyPromise.json();
                 await setProperty(propertyData.property);
                 console.log(propertyData.property);
 
                 const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyData.property.id}`)
-                const imagesData = await imagesPromise.json();
-                await setImages(imagesData.images[0].original);
-                await console.log(imagesData);
+                if (imagesPromise.ok){
+                    const imagesData = await imagesPromise.json();
+                    await setImages(imagesData.images[0].original);
+                    await console.log(imagesData);
+                }
+                else{
+                    setProperty(null);
+                }
+
 
                 const ownerPromise = await fetch(`http://127.0.0.1:8000/api/owner/${propertyData.property['user_id']}`)
                 const ownerData = await ownerPromise.json();
                 await setOwner(ownerData.user);
                 await console.log(ownerData);
 
-                const response = await fetch(`http://127.0.0.1:8000/api/property/${propertyId}`);
-                const foundData = await response.json();
-                await setProperty(foundData.property);
 
-                if (foundData) {
+                if (property){
                     const userResponse = await fetch(`http://127.0.0.1:8000/api/owner/${foundData.property['user_id']}`);
                     const user = await userResponse.json();
 
                     user.user !== null ? setOwner(user.user) : setOwner("N/A");
                     await console.log(owner);
                     await console.log(foundData.property['user_id']);
-                }*/
+                }
 
 
             } catch (error) {
@@ -62,14 +65,14 @@ function PropertyCard(props) {
         if (owner){
             console.log(owner.id)
             console.log(userId)
-            return owner.id == userId;
+            return owner.id === userId;
         } else {
             return false
         }
 
     }
 
-    if (!property || !owner || !images) {
+    if (!property) {
         return <Loading/>
     } else {
         return (
@@ -86,7 +89,9 @@ function PropertyCard(props) {
                     </div>
                     <div className={"property-quick-actions apply-square-background"}>
                         <button className={"button"}>Buy</button>
-                        {checkOwnerIsLogIn(owner) ? <OwnButtons/> : <button className={'button'}>ez a rossz</button> }
+                        {localStorage.getItem('userToken') ? <FavoriteButton property_id={propertyId}/> : ""}
+                        {/*<FavoriteButton property_id={propertyId}/>*/}
+                        {/*{checkOwnerIsLogIn(owner) ? <FavoriteButton property_id={propertyId}/> : <button className={'button'}>ez a rossz</button> }*/}
 
                     </div>
                     <div className={"col-span-2 property-data apply-square-background"}>
@@ -137,7 +142,6 @@ function PropertyCard(props) {
                             <h1>Property owner</h1>
                             <h1>{owner['name']}</h1>
                             <h1>{owner['email']}</h1>
-                            <button className={"button"}>Contact Owner</button>
                         </div>
                         :
                         <div className={"col-span-1 property-owner apply-square-background"}>
@@ -147,6 +151,7 @@ function PropertyCard(props) {
                     }
                 </div>
             </div>
+
         );
     }
 }
