@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import Loading from "./Loading.jsx";
 import SystemMessage from "./SystemMessage.jsx";
 
@@ -41,8 +41,7 @@ export default function RegisterForm() {
                     })
                     console.log(info)
                     console.log(info.newUserId)
-                    localStorage.setItem('userToken', info.newUserId)
-                    navigate('/');
+                    navigate('/login')
                     window.location.reload()
                 } else {
 
