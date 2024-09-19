@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
@@ -21,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/messages', [MessageController::class, 'index']);
+
 Route::post('/user/login', [UserController::class, 'userLogin']);
 Route::post('/user/register', [UserController::class, 'registerUser']);
 Route::middleware('auth:sanctum')->post('/user/logout', [UserController::class, 'userLogout']);
@@ -37,3 +38,11 @@ Route::get('/images/{property_id}', [ImageController::class, 'getImages']);//Pos
 Route::get('/property/{property_id}', [PropertyController::class, 'getProperty']);
 Route::get('/owner/{user_id}', [UserController::class, 'getUserNameAndEmail']);
 Route::get('/properties/number', [PropertyController::class, 'getPropertiesNumber']);
+
+
+Route::middleware('auth:sanctum')->post('/message/send', [MessageController::class, 'sendMessage']);
+Route::post('/user/messages', [MessageController::class, 'getMessages']);
+Route::post('/user/favorites', [FavoriteController::class, 'getUserFavorites']);
+Route::post('/favorites', [FavoriteController::class, 'addFavorite']);
+Route::post('/favorites/delete', [FavoriteController::class, 'removeFavorite']);
+

@@ -26,4 +26,8 @@ class Property extends Model
         'facing',
         'price'
     ];
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'property_id', 'user_id');
+    }
 }

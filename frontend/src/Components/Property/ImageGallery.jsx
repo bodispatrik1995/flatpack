@@ -6,17 +6,16 @@ export default function ImageGallery({propertyImages}){
 
     console.log(images)
 
-    const [currentImage, setCurrentImage] = useState(`http://localhost:8000/${images[currentImageIndex]['image_path']}`)
+    const [currentImage, setCurrentImage] = useState(null)
 
     useEffect(()=>{
-        setCurrentImage(`http://localhost:8000/${images[currentImageIndex]['image_path']}`);
+        if (images.length > 0){
+            setCurrentImage(`http://localhost:8000/${images[currentImageIndex]['image_path']}`);
+        }
+        else{
+            setCurrentImageIndex(null);
+        }
     }, [currentImageIndex])
-
-    if(images.length === 0){
-        return (
-            <h1>No images</h1>
-        )
-    }
 
     const next = () => {
         console.log("current image index: " + currentImageIndex);
@@ -42,20 +41,20 @@ export default function ImageGallery({propertyImages}){
         }
     }
 
+    if (currentImage === null){
+        return (
+            <h1>There are no images for this property!</h1>
+        )
+    }
+
     return (
         <>
             <img src={currentImage}/>
             <div className={'gallery-menu-bar'}>
                 <button className={'gallery-menu-buttons-left'} onClick={previous}>
-                    {/*
-                    <i className={'gallery-menu-buttons gallery-menu-buttons-left'}></i>
-                    */}
                     Previous
                 </button>
                 <button className={'gallery-menu-buttons-right'} onClick={next}>
-                    {/*
-                    <i className={'gallery-menu-buttons gallery-menu-buttons-right'}></i>
-                    */}
                     Next
                 </button>
 
