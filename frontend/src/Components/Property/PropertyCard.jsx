@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
-import {useParams} from "react-router-dom";
 import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
 import OwnButtons from "./OwnButtons.jsx";
@@ -14,9 +13,7 @@ function PropertyCard() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/property/${id}`);
-                console.log(props.id)
-                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${props.id}`)
+                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${id}`)
                 const propertyData = await propertyPromise.json();
                 await setProperty(propertyData.property);
                 console.log(propertyData.property);

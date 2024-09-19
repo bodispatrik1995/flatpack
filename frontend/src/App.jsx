@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import './Components/Css/App.css'
 import './Components/Css/SystemStyles.css'
+import './Components/Css/gallery.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from "./Components/Header.jsx";
 import MainPage from "./Components/MainPage.jsx";
@@ -23,14 +24,6 @@ function App() {
         setUsername(localStorage.getItem('username'))
         console.log(window.localStorage.getItem("sampleList"));
     });
-    // console.log(JSON.parse(window.localStorage.getItem("userToken")));
-    // useEffect(() => {
-    //     window.addEventListener('storage', () => {
-    //         setUser(localStorage.getItem('userToken'))
-    //     })
-    // }, []);
-    // localStorage.setItem('userToken', 'haha')
-    // localStorage.clear()
     return (
         <BrowserRouter>
             <Header user={user} username={username}></Header>

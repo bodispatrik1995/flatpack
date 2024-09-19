@@ -47,15 +47,9 @@ export default function ImageGallery({propertyImages}){
             <img src={currentImage}/>
             <div className={'gallery-menu-bar'}>
                 <button className={'gallery-menu-buttons-left'} onClick={previous}>
-                    {/*
-                    <i className={'gallery-menu-buttons gallery-menu-buttons-left'}></i>
-                    */}
                     Previous
                 </button>
                 <button className={'gallery-menu-buttons-right'} onClick={next}>
-                    {/*
-                    <i className={'gallery-menu-buttons gallery-menu-buttons-right'}></i>
-                    */}
                     Next
                 </button>
 
