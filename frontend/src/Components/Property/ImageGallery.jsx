@@ -6,17 +6,16 @@ export default function ImageGallery({propertyImages}){
 
     console.log(images)
 
-    const [currentImage, setCurrentImage] = useState(`http://localhost:8000/${images[currentImageIndex]['image_path']}`)
+    const [currentImage, setCurrentImage] = useState(null)
 
     useEffect(()=>{
-        setCurrentImage(`http://localhost:8000/${images[currentImageIndex]['image_path']}`);
+        if (images.length > 0){
+            setCurrentImage(`http://localhost:8000/${images[currentImageIndex]['image_path']}`);
+        }
+        else{
+            setCurrentImageIndex(null);
+        }
     }, [currentImageIndex])
-
-    if(images.length === 0){
-        return (
-            <h1>No images</h1>
-        )
-    }
 
     const next = () => {
         console.log("current image index: " + currentImageIndex);
@@ -40,6 +39,12 @@ export default function ImageGallery({propertyImages}){
             setCurrentImageIndex(images.length -1 );
             console.log("image index set to: " + currentImageIndex);
         }
+    }
+
+    if (currentImage === null){
+        return (
+            <h1>There are no images for this property!</h1>
+        )
     }
 
     return (

@@ -19,9 +19,15 @@ function PropertyCard() {
                 console.log(propertyData.property);
 
                 const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyData.property.id}`)
-                const imagesData = await imagesPromise.json();
-                await setImages(imagesData.images[0].original);
-                await console.log(imagesData);
+                if (imagesPromise.ok){
+                    const imagesData = await imagesPromise.json();
+                    await setImages(imagesData.images[0].original);
+                    await console.log(imagesData);
+                }
+                else{
+                    setProperty(null);
+                }
+
 
                 const ownerPromise = await fetch(`http://127.0.0.1:8000/api/owner/${propertyData.property['user_id']}`)
                 const ownerData = await ownerPromise.json();
@@ -66,7 +72,7 @@ function PropertyCard() {
 
     }
 
-    if (!property || !owner || !images) {
+    if (!property) {
         return <Loading/>
     } else {
         return (
