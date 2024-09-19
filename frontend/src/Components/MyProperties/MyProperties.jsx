@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropertyList from "../PropertyList/PropertyList.jsx";
 
-function MyProperties(props) {
+function MyProperties() {
     const [myProperties, setMyProperties] = useState([]);
     const token = localStorage.getItem('userToken')
     useEffect(() => {

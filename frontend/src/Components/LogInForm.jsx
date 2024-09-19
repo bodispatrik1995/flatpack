@@ -37,7 +37,6 @@ function LogInForm() {
                     console.log(data)
                     if (data.status){
                         console.log("login was successful! Backend returned token")
-                        const token = data['token'];
                         localStorage.setItem('userToken', data.token);
                         localStorage.setItem('username', data.username);
                         localStorage.setItem('userId', data.id)
