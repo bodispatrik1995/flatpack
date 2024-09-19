@@ -1,8 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 function FavoriteButton(props) {
     const [favoriteClicked, setFavoriteClicked] = useState(false)
     const token = localStorage.getItem('userToken');
+
+    useEffect(() => {
+        const fetchIsItIn = async () => {
+            const response = await fetch('http://127.0.0.1:8000/api/favorites/isin', {
+                method: "POST",
+                headers : {
+                    'Authorization': `Bearer ${token}`,
+                    "Content-type" : "application/json",
+                    'Accept': 'application/json',
+                },
+                body : JSON.stringify({
+                    property_id : props.property_id
+                })
+            });
+            const found = await response.json();
+            // console.log(found.status)
+            setFavoriteClicked(found.status)
+
+        }
+        fetchIsItIn()
+    }, []);
     async function fetchAddFavorites (property_id){
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/favorites`, {
@@ -13,12 +34,11 @@ function FavoriteButton(props) {
                     'Accept': 'application/json',
                 },
                 body : JSON.stringify({
-                    // user_id : user_id,
                     property_id : property_id
                 })
             });
-            // const foundData = await response.json();
-
+            const foundData = await response.json();
+            // console.log(foundData)
         } catch (error) {
             console.error('Error fetching property types:', error);
         }
@@ -33,12 +53,11 @@ function FavoriteButton(props) {
                     'Accept': 'application/json',
                 },
                 body : JSON.stringify({
-                    // user_id : user_id,
                     property_id : property_id
                 })
             });
             const foundData = await response.json();
-            console.log(foundData)
+            // console.log(foundData)
         } catch (error) {
             console.error('Error fetching property types:', error);
         }
@@ -57,8 +76,7 @@ function FavoriteButton(props) {
         <div>
             {favoriteClicked ? <button className={'button'} onClick={favoriteChange}>Delete from favorites</button> :
                 <button className={'button'} onClick={favoriteChange}>Add to favorites</button>}
-            <button className={'button'}>Delete</button>
-            <button className={'button'}>Update</button>
+
         </div>
     );
 }

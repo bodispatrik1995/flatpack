@@ -45,4 +45,5 @@ Route::post('/user/messages', [MessageController::class, 'getMessages']);
 Route::post('/user/favorites', [FavoriteController::class, 'getUserFavorites']);
 Route::post('/favorites', [FavoriteController::class, 'addFavorite']);
 Route::post('/favorites/delete', [FavoriteController::class, 'removeFavorite']);
+Route::post('/favorites/isin', [FavoriteController::class, 'checkIsItIn']);
 
