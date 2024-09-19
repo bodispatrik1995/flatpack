@@ -3,6 +3,7 @@ import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
 import FavoriteButton from "./FavoriteButton.jsx";
+import ChangeButton from "./ChangeButton.jsx";
 
 function PropertyCard() {
     const { id } = useParams();
@@ -22,6 +23,8 @@ function PropertyCard() {
                 if (imagesPromise.ok){
                     const imagesData = await imagesPromise.json();
                     await setImages(imagesData.images[0].original);
+                    console.log(imagesData.images[0].original)
+
                     await console.log(imagesData);
                 }
                 else{
@@ -33,6 +36,7 @@ function PropertyCard() {
                 const ownerData = await ownerPromise.json();
                 await setOwner(ownerData.user);
                 await console.log(ownerData);
+                console.log(images)
 
 
                 if (property){
@@ -60,12 +64,12 @@ function PropertyCard() {
     function currencyFormat(num) {
         return '' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
-    function checkOwnerIsLogIn (owner){
+    function checkOwnerIsLogIn (){
         const userId = localStorage.getItem('userId')
         if (owner){
             console.log(owner.id)
             console.log(userId)
-            return owner.id === userId;
+            return owner.id == userId;
         } else {
             return false
         }
@@ -91,7 +95,7 @@ function PropertyCard() {
                         <button className={"button"}>Buy</button>
                         {localStorage.getItem('userToken') ? <FavoriteButton property_id={propertyId}/> : ""}
                         {/*<FavoriteButton property_id={propertyId}/>*/}
-                        {/*{checkOwnerIsLogIn(owner) ? <FavoriteButton property_id={propertyId}/> : <button className={'button'}>ez a rossz</button> }*/}
+                        {checkOwnerIsLogIn(owner) ? <ChangeButton/> : "" }
 
                     </div>
                     <div className={"col-span-2 property-data apply-square-background"}>

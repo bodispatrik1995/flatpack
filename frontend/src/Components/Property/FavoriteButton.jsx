@@ -57,8 +57,7 @@ function FavoriteButton(props) {
         <div>
             {favoriteClicked ? <button className={'button'} onClick={favoriteChange}>Delete from favorites</button> :
                 <button className={'button'} onClick={favoriteChange}>Add to favorites</button>}
-            <button className={'button'}>Delete</button>
-            <button className={'button'}>Update</button>
+
         </div>
     );
 }

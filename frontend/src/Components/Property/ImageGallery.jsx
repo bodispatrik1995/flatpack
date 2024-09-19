@@ -1,21 +1,32 @@
 import {useEffect, useState} from "react";
 
-export default function ImageGallery({propertyImages}){
-    const [images, setImages] = useState(propertyImages ? propertyImages : []);
+export default function ImageGallery(props){
+    const [images, setImages] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(1)
-
-    console.log(images)
-
+    console.log(props.propertyImages)
+    // if (props.propertyImages){
+    //     setImages(props.propertyImages)
+    // }
     const [currentImage, setCurrentImage] = useState(null)
 
     useEffect(()=>{
-        if (images.length > 0){
-            setCurrentImage(`http://localhost:8000/${images[currentImageIndex]['image_path']}`);
+        // if (props.propertyImages){
+        //     setImages(props.propertyImages)
+        // }
+        if (props.propertyImages && props.propertyImages.length > 0){
+            console.log(currentImage)
+
+
+            setCurrentImage(`http://localhost:8000/${props.propertyImages[currentImageIndex]['image_path']}`);
         }
         else{
             setCurrentImageIndex(null);
         }
+        console.log(currentImage)
     }, [currentImageIndex])
+
+
+    console.log(images)
 
     const next = () => {
         console.log("current image index: " + currentImageIndex);
