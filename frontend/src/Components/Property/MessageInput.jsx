@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import Loading from "../Loading.jsx";
 
-export default function MessageInput({title, propertyId, owner}) {
+export default function MessageInput({propertyTitle, propertyId, propertyOwner}) {
 
-    const [owner] = useState(owner ? owner : null);
+    const [owner] = useState(propertyOwner ? propertyOwner : null);
 
-    const [title, setTitle] = useState(title);
+    const [title, setTitle] = useState(propertyTitle);
     const [message, setMessage] = useState();
 
     if (!owner) {
