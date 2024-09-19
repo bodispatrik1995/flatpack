@@ -3,7 +3,8 @@ import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
 import FavoriteButton from "./FavoriteButton.jsx";
-import Messages from "./Messages.jsx";
+import Inbox from "../Inbox.jsx";
+import MessageInput from "./MessageInput.jsx";
 
 function PropertyCard() {
     const { id } = useParams();
@@ -96,7 +97,7 @@ function PropertyCard() {
                         {/*{checkOwnerIsLogIn(owner) ? <FavoriteButton property_id={propertyId}/> : <button className={'button'}>ez a rossz</button> }*/}
 
                     </div>
-                    {owner ? <Messages owner={owner}></Messages> : ""}
+                    {owner ? <MessageInput owner={owner}></MessageInput> : ""}
                     <div className={"col-span-2 property-data apply-square-background"}>
                         <h1>Property data</h1>
                         <table className={"table-auto property-data-table"}>
