@@ -39,7 +39,7 @@ function PropertyCard(props) {
                     user.user !== null ? setOwner(user.user) : setOwner("N/A");
                     await console.log(owner);
                     await console.log(foundData.property['user_id']);
-                }*/
+                }
 
 
             } catch (error) {
