@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import './Components/Css/App.css'
 import './Components/Css/SystemStyles.css'
+import './Components/Css/gallery.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HeaderIn from "./Components/HeaderIn.jsx";
 import HeaderOut from "./Components/HeaderOut.jsx";

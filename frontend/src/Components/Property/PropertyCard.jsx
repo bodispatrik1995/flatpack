@@ -1,18 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
+import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
 import OwnButtons from "./OwnButtons.jsx";
 
 function PropertyCard(props) {
     const [property, setProperty] = useState(null);
+    const [images, setImages] = useState(null)
     const [owner, setOwner] = useState(null)
     const propertyId = useParams().id
     useEffect(() => {
         const fetchProperty = async () => {
             try {
+                console.log(props.id)
+                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${props.id}`)
+                const propertyData = await propertyPromise.json();
+                await setProperty(propertyData.property);
+                console.log(propertyData.property);
+
+                const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyData.property.id}`)
+                const imagesData = await imagesPromise.json();
+                await setImages(imagesData.images[0].original);
+                await console.log(imagesData);
+
+                const ownerPromise = await fetch(`http://127.0.0.1:8000/api/owner/${propertyData.property['user_id']}`)
+                const ownerData = await ownerPromise.json();
+                await setOwner(ownerData.user);
+                await console.log(ownerData);
+
                 const response = await fetch(`http://127.0.0.1:8000/api/property/${propertyId}`);
                 const foundData = await response.json();
-                // foundData.unshift('Choose a type')
                 await setProperty(foundData.property);
 
                 if (foundData) {
@@ -20,9 +37,9 @@ function PropertyCard(props) {
                     const user = await userResponse.json();
 
                     user.user !== null ? setOwner(user.user) : setOwner("N/A");
-                    // await console.log(owner);
-                    // await console.log(foundData.property['user_id']);
-                }
+                    await console.log(owner);
+                    await console.log(foundData.property['user_id']);
+                }*/
 
 
             } catch (error) {
@@ -35,6 +52,7 @@ function PropertyCard(props) {
 
         fetchProperty();
     }, []);
+
 
     function currencyFormat(num) {
         return '' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -51,7 +69,7 @@ function PropertyCard(props) {
 
     }
 
-    if (!property) {
+    if (!property || !owner || !images) {
         return <Loading/>
     } else {
         return (
@@ -59,6 +77,7 @@ function PropertyCard(props) {
                 <div className={"grid gap-4 grid-cols-3 grid-rows-3 Property-headline"}>
                     <div className={"row-span-3 col-span-2 property-images apply-square-background"}>
                         <h1>Property images</h1>
+                        <ImageGallery propertyImages={images}></ImageGallery>
                     </div>
                     <div className={"row-span-2 property-quick-data apply-square-background"}>
                         <h1>{property.title}</h1>
@@ -128,7 +147,6 @@ function PropertyCard(props) {
                     }
                 </div>
             </div>
-
         );
     }
 }
