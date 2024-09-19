@@ -8,7 +8,6 @@ import ChangeButton from "./ChangeButton.jsx";
 function PropertyCard() {
     const { id } = useParams();
     const [property, setProperty] = useState(null);
-    const [images, setImages] = useState(null)
     const [owner, setOwner] = useState(null)
     const propertyId = useParams().id
     useEffect(() => {
@@ -17,42 +16,20 @@ function PropertyCard() {
                 const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${id}`)
                 const propertyData = await propertyPromise.json();
                 await setProperty(propertyData.property);
-                console.log(propertyData.property);
-
-                const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyData.property.id}`)
-                if (imagesPromise.ok){
-                    const imagesData = await imagesPromise.json();
-                    await setImages(imagesData.images[0].original);
-                    console.log(imagesData.images[0].original)
-
-                    await console.log(imagesData);
-                }
-                else{
-                    setProperty(null);
-                }
-
 
                 const ownerPromise = await fetch(`http://127.0.0.1:8000/api/owner/${propertyData.property['user_id']}`)
                 const ownerData = await ownerPromise.json();
                 await setOwner(ownerData.user);
-                await console.log(ownerData);
-                console.log(images)
-
+                // await console.log(ownerData);
 
                 if (property){
                     const userResponse = await fetch(`http://127.0.0.1:8000/api/owner/${foundData.property['user_id']}`);
                     const user = await userResponse.json();
-
                     user.user !== null ? setOwner(user.user) : setOwner("N/A");
-                    await console.log(owner);
-                    await console.log(foundData.property['user_id']);
                 }
-
-
             } catch (error) {
                 console.error('Error fetching property types:', error);
             }
-
 
             //TODO handle error when property is not found
         };
@@ -67,8 +44,8 @@ function PropertyCard() {
     function checkOwnerIsLogIn (){
         const userId = localStorage.getItem('userId')
         if (owner){
-            console.log(owner.id)
-            console.log(userId)
+            // console.log(owner.id)
+            // console.log(userId)
             return owner.id == userId;
         } else {
             return false
@@ -84,7 +61,7 @@ function PropertyCard() {
                 <div className={"grid gap-4 grid-cols-3 grid-rows-3 Property-headline"}>
                     <div className={"row-span-3 col-span-2 property-images apply-square-background"}>
                         <h1>Property images</h1>
-                        <ImageGallery propertyImages={images}></ImageGallery>
+                        <ImageGallery/>
                     </div>
                     <div className={"row-span-2 property-quick-data apply-square-background"}>
                         <h1>{property.title}</h1>

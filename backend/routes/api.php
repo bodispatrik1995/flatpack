@@ -42,3 +42,4 @@ Route::get('/properties/number', [PropertyController::class, 'getPropertiesNumbe
 Route::post('/user/favorites', [FavoriteController::class, 'getUserFavorites']);
 Route::post('/favorites', [FavoriteController::class, 'addFavorite']);
 Route::post('/favorites/delete', [FavoriteController::class, 'removeFavorite']);
+Route::post('/favorites/isin', [FavoriteController::class, 'checkIsItIn']);
