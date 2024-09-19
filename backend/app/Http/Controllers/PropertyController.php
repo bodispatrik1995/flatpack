@@ -93,10 +93,10 @@ class PropertyController extends Controller
             }
     }
 
-    public function deleteProperty($request)
+    public function deleteProperty($id)
     {
 
-            $id = $request->id;
+//            $id = $request->id;
            $succes = $this->propertyService->delete($id);
             if($succes){
                 return response()->json([
@@ -115,8 +115,6 @@ class PropertyController extends Controller
     public function getProperty($id)
     {
 
-//        $id = $request->id;
-//        var_dump($id);
             $property = $this->propertyService->get($id);
             if($property){
                 return response()->json([
@@ -133,13 +131,29 @@ class PropertyController extends Controller
 
 
     }
+    public function getAllPropertiesToUser (Request $request){
+        $id = \auth('sanctum')->id();
+        $properties = $this->propertyService->getPropertiesByUserId($id);
+        if($properties){
+            return response()->json([
+                'success' => true,
+                'properties' => $properties
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No properties found'
+            ], 404);
+        }
 
-    public function getPropertiesNumber()
-    {
-        $properties = Property::all()->count();
-//        $propertiesNumber = Property::->count();
-//        var_dump($properties);
-        return response()->json($properties, 200);
     }
+
+//    public function getPropertiesNumber()
+//    {
+//        $properties = Property::all()->count();
+////        $propertiesNumber = Property::->count();
+////        var_dump($properties);
+//        return response()->json($properties, 200);
+//    }
 
 }
