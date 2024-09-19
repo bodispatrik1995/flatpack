@@ -48,9 +48,20 @@ class MessageController extends Controller
        }
     }
 
-    public function answerMessage(Request $request){
-        $userID = \auth('sanctum')->id();
-        $message = $this->messageService->answerMessage($request, $userID);
-    }
+  public function getConversation(Request $request){
+        $id_user_from = \auth('sanctum')->id();
+       $conversation = $this->messageService->getConversation($id_user_from, $request);
+       if($conversation){
+           return response()->json([
+               'success' => true,
+               'conversation' => $conversation,
+           ],200);
+       }else{
+           return response()->json([
+               'success' => false,
+               'messages' => 'No messages',
+           ],404);
+       }
+  }
 
 }
