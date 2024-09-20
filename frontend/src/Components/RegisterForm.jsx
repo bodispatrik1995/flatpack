@@ -41,8 +41,7 @@ export default function RegisterForm() {
                     })
                     console.log(info)
                     console.log(info.newUserId)
-                    localStorage.setItem('userToken', info.newUserId)
-                    navigate('/');
+                    navigate('/login')
                     window.location.reload()
                 } else {
 
