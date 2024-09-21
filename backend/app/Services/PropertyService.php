@@ -143,4 +143,8 @@ class PropertyService
     {
         return Property::where('id', $id)->first();
     }
+    public function getPropertiesByUserId($user_id)
+    {
+        return Property::where('user_id', $user_id)->get();
+    }
 }

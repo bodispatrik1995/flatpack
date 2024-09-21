@@ -12,6 +12,7 @@ import {Footer} from "./Components/Footer.jsx";
 import PropertyCard from "./Components/Property/PropertyCard.jsx";
 import UploadImages from "./Components/Property/UploadImages.jsx";
 import MyFavorites from "./Components/Favorites/MyFavorites.jsx";
+import MyProperties from "./Components/MyProperties/MyProperties.jsx";
 import Inbox from "./Components/Inbox.jsx";
 
 function App() {
@@ -37,7 +38,9 @@ function App() {
                 <Route path={'/register'} element={<RegisterForm/>}/>
                 <Route path={'/property/:id'} element={<PropertyCard/>}/>
                 <Route path={'/favorites'} element={<MyFavorites/>}/>
-                <Route path={'/inbox'} element={<Inbox/>}/>
+                <Route path={'/myproperties'} element={<MyProperties/>}/>
+
+
             </Routes>
             <Footer/>
         </BrowserRouter>
