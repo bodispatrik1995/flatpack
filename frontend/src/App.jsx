@@ -39,7 +39,7 @@ function App() {
                 <Route path={'/favorites'} element={<MyFavorites/>}/>
                 <Route path={'/myproperties'} element={<MyProperties/>}/>
 
-                <Route path={'/inbox'} element={<Inbox/>}/>
+
             </Routes>
             <Footer/>
         </BrowserRouter>
