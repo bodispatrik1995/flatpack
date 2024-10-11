@@ -3,7 +3,7 @@ import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 import {useParams} from "react-router-dom";
 import FavoriteButton from "./FavoriteButton.jsx";
-import Inbox from "../Inbox.jsx";
+//import Inbox from "../Inbox.jsx";
 import MessageInput from "./MessageInput.jsx";
 import ChangeButton from "./ChangeButton.jsx";
 

@@ -13,7 +13,7 @@ import PropertyCard from "./Components/Property/PropertyCard.jsx";
 import UploadImages from "./Components/Property/UploadImages.jsx";
 import MyFavorites from "./Components/Favorites/MyFavorites.jsx";
 import MyProperties from "./Components/MyProperties/MyProperties.jsx";
-import Inbox from "./Components/Inbox.jsx";
+//import Inbox from "./Components/Inbox.jsx;
 
 function App() {
     const [user, setUser] = useState(localStorage.getItem('userToken'))
