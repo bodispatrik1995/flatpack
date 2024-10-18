@@ -34,7 +34,8 @@ function UploadImages() {
         const response = await fetch('http://127.0.0.1:8000/api/upload_image', {
             method: "POST",
             headers: {
-                "Accept": "application/json", // Only Accept header is needed
+                "Accept": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
             },
             body: formData,
         });

@@ -59,18 +59,7 @@ function LogInForm() {
                 .finally(() => setLoading(false))
         }
     return (
-        // <div>
-        //     <form onSubmit={handleSubmit}>
-        //         <label htmlFor={'login-email-input'}>E-mail:</label>
-        //         <input type="text" id={'login-email-input'} required name={'login-email-input'} onChange={handleEmailChange}/>
-        //         <br/>
-        //         <label htmlFor={'login-password-form'}>Password:</label>
-        //         <input type="password" id={'login-password-form'} required name={'login-password-form'} onChange={handlePasswordChange}/>
-        //         <br/>
-        //         <button type="submit">Sign In</button>
-        //     </form>
-        //     {loading ? <Loading/> : ''}
-        // </div>
+
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-6">

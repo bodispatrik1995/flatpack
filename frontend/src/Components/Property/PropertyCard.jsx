@@ -15,7 +15,12 @@ function PropertyCard() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${id}`)
+                const propertyPromise = await fetch(`http://127.0.0.1:8000/api/property/${id}`,
+                    {
+                        headers : {
+                            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                        }
+                    })
                 const propertyData = await propertyPromise.json();
                 await setProperty(propertyData.property);
 
