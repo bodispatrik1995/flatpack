@@ -9,6 +9,7 @@ class Message extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
     protected $table = 'messages';
     protected $fillable = [
         'id_user_from',
@@ -17,12 +18,12 @@ class Message extends Model
         'title',
         'message',
     ];
-    public $timestamps = true;
 
     public function sender()
     {
         return $this->belongsTo(User::class, 'id_user_from');
     }
+
     public function recipient()
     {
         return $this->belongsTo(User::class, 'id_user_to');

@@ -33,6 +33,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Property::class, 'favorites', 'user_id', 'property_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -44,9 +49,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-    public function favorites()
-    {
-        return $this->belongsToMany(Property::class, 'favorites', 'user_id', 'property_id');
     }
 }

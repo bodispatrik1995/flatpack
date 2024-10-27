@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
     use HasFactory;
-    protected $fillable=[
+
+    protected $fillable = [
         'title',
         'user_id',
         'description',
@@ -26,6 +27,7 @@ class Property extends Model
         'facing',
         'price'
     ];
+
     public function favoritedBy()
     {
         return $this->belongsToMany(User::class, 'favorites', 'property_id', 'user_id');
