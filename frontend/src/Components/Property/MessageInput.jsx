@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import Loading from "../Loading.jsx";
 
-export default function MessageInput({propertyTitle, propertyId, propertyOwner}) {
+function MessageInput({propertyTitle, propertyId, propertyOwner}) {
 
     const [owner] = useState(propertyOwner ? propertyOwner : null);
 
@@ -28,3 +28,4 @@ export default function MessageInput({propertyTitle, propertyId, propertyOwner})
         </div>
     )
 }
+export default MessageInput;

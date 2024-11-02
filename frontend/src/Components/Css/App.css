@@ -1,6 +1,6 @@
 body{
-  background: #747bff;
-  color: white;
+  background: rgba(255, 255, 255, 0);
+  color: #050404;
 }
 
 #root {
@@ -17,10 +17,10 @@ body{
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #74dfff);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #74ceff);
 }
 
 @keyframes logo-spin {
@@ -39,11 +39,11 @@ body{
 }
 
 .card {
-  padding: 2em;
+  padding: 1em;
 }
 
 .read-the-docs {
-  color: #888;
+  color: #74ceff;
 }
 
 .property-card{
@@ -51,7 +51,7 @@ body{
 }
 
 .apply-square-background{
-  background-color: #9ca3af;
+  background-color: rgba(255, 255, 255, 0);
   padding: 30px;
   border-radius: 10px;
 }
@@ -59,11 +59,35 @@ body{
 
 }
 
-.button{
-  background: #2a5192;
-  padding: 10px;
-  border-radius: 10px;
+.button {
+  color: white; /* text-white */
+  background: linear-gradient(to bottom right, #050404, #050404); /* bg-gradient-to-br from-purple-600 to-blue-500 */
+  font-weight: 500; /* font-medium */
+  border-radius: 0.5rem; /* rounded-lg */
+  font-size: 0.875rem; /* text-sm */
+  padding: 0.625rem 1.25rem; /* px-5 py-2.5 */
+  text-align: center; /* text-center */
+  margin-right: 0.5rem; /* me-2 */
+  margin-bottom: 0.5rem; /* mb-2 */
 }
+
+/* Hover state */
+.button:hover {
+  background: linear-gradient(to bottom left, #74ceff, #3b82f6); /* hover:bg-gradient-to-bl */
+}
+
+/* Focus state */
+.button:focus {
+  outline: none; /* focus:outline-none */
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5); /* focus:ring-4 focus:ring-blue-300 */
+}
+
+/* Dark mode focus state */
+.dark .button:focus {
+  box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.8); /* dark:focus:ring-blue-800 */
+}
+
+
 
 
 
@@ -73,7 +97,7 @@ body{
 
 td, th {
   padding: 10px;
-  border: white solid 1px;
+  border: #ffffff solid 1px;
   border-radius: 10px;
 }
 h1{

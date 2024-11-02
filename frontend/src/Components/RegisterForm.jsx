@@ -17,7 +17,7 @@ export default function RegisterForm() {
         e.preventDefault();
         setLoading(true);
         setResponseMessages(null);
-        fetch('http://127.0.0.1:8000/api/user/register', {
+        fetch('s/api/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

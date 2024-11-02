@@ -24,16 +24,20 @@ class ImageController extends Controller
         $success = $this->imageService->upload($request);
 
         if ($success) {
+            // Retrieve the file names of the uploaded images
+            $uploadedImages = array_map(function ($file) {
+                return $file->hashName(); // Return only the filename or path
+            }, $request->file('image_path'));
+
             return response()->json([
                 'success' => true,
                 'message' => 'Image Uploaded',
-                'image' => $request->file('image_path'),
+                'images' => $uploadedImages, // Only return serializable data here
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
                 'message' => 'Image not Uploaded',
-
             ], 500);
         }
     }
