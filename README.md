@@ -1,7 +1,12 @@
 
 # FlatPack
 
-**FlatPack** is a full-stack web application designed for real estate ads. Users can search for available properties or upload their own real estate listings. This project is powered by a Laravel backend and a React frontend, all packaged within Docker for easy setup and deployment.'
+**FlatPack** is a full-stack web application designed for real estate ads. Users can search for available properties or upload their own real estate listings.
+This project is scool team project the team mates are:
+-Ádám Moor
+-Attila Gonda
+-Patrik Bódis 
+This project is powered by a Laravel backend and a React frontend, all packaged within Docker for easy setup and deployment.'
 ![Screenshot 2024-11-05 163459](https://github.com/user-attachments/assets/a34e8bfe-f8f3-4223-8c32-ba629115c984)
 
 ## Features
