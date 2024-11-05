@@ -10,8 +10,13 @@ export default function ImageGallery(props) {
 
     useEffect(() => {
         const fetchImages = async () => {
-            const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyId.id}`)
-            // console.log(imagesPromise.ok)
+            const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyId.id}`,
+                {
+                    headers : {
+                        'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                    }
+                })
+
             if (imagesPromise.ok) {
                 const imagesData = await imagesPromise.json();
                 const imagesDown = imagesData.images[0].original
@@ -60,10 +65,12 @@ export default function ImageGallery(props) {
 
                 <img src={currentImage} alt={'key'}/>
                 <div className={'gallery-menu-bar'}>
-                    <button className={'gallery-menu-buttons-left'} onClick={previous}>
+                    <button className={'min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800  focus:bg-slate-800 focus:border-slate-800 active:border-slate-800  active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2'}
+                            onClick={previous}>
                         Previous
                     </button>
-                    <button className={'gallery-menu-buttons-right'} onClick={next}>
+                    <button className={'min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800  focus:bg-slate-800 focus:border-slate-800 active:border-slate-800  active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2'}
+                            onClick={next}>
                         Next
                     </button>
 

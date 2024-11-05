@@ -23,7 +23,7 @@ function LogInForm() {
         setErrorMessage('');
         setLoading(true);
         console.log('loading state is: ' + loading);
-            fetch('http://127.0.0.1:8000/api/user/login', {
+            fetch('s/api/user/login', {
                 method : 'POST',
                 headers : {
                     "Content-type" : "application/json"
@@ -62,6 +62,7 @@ function LogInForm() {
                 .finally(() => setLoading(false))
         }
     return (
+
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-6">

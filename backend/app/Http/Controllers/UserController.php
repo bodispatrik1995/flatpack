@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    function getUserNameAndEmail($user_id){
+    function getUserNameAndEmail($user_id)
+    {
         $id = $user_id;
 
         $user = User::select('id', 'name', 'email')->where('id', $id)->first();
@@ -19,8 +19,7 @@ class UserController extends Controller
         return response()->json(
             [
                 'status' => true,
-                'user' => $user,
-                'id' => $id
+                'user' => $user
             ]
         );
     }
@@ -76,6 +75,7 @@ class UserController extends Controller
 
 
     }
+
     public function registerUser(Request $request)
     {
         $email = $request->input('email');
@@ -88,7 +88,7 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'validation error',
@@ -99,8 +99,8 @@ class UserController extends Controller
         if (User::where('email', $email)->exists()) {
             return response()->json(
                 [
-                'status' => false,
-                'message' => 'A user with this email already exists!'
+                    'status' => false,
+                    'message' => 'A user with this email already exists!'
                 ], 409
             );
         }
@@ -111,10 +111,11 @@ class UserController extends Controller
             'status' => true,
             'message' => 'Registration successful!',
             'newUserId' => $newUser->id
-            ],201);
+        ], 201);
     }
 
-    public function userLogout(Request $request) {
+    public function userLogout(Request $request)
+    {
         if (Auth::check()) {
             // Get the currently authenticated user's token (Passport or Sanctum)
             $token = $request->user()->currentAccessToken();

@@ -4,16 +4,17 @@ namespace App\Services;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
-use PHPUnit\Util\Exception;
 
 class PropertyService
 {
     public function getAll()
     {
-           return  Property::all();
+        return Property::all();
     }
 
-    public function search(Request $request){
+
+    public function search(Request $request)
+    {
         $title = $request->input('title');
         $description = $request->input('description');
         $size = $request->input('size');
@@ -92,6 +93,11 @@ class PropertyService
         return $typesArray;
     }
 
+    public function get($id)
+    {
+        return Property::where('id', $id)->first();
+    }
+
     public function add(Request $request, $user_id)
     {
         $request->validate([
@@ -133,16 +139,13 @@ class PropertyService
         return $property;
     }
 
-    public function delete($id){
-
-       return Property::where('id', $id)->delete();
-
-    }
-
-    public function get($id)
+    public function delete($id)
     {
-        return Property::where('id', $id)->first();
+
+        return Property::where('id', $id)->delete();
+
     }
+
     public function getPropertiesByUserId($user_id)
     {
         return Property::where('user_id', $user_id)->get();
