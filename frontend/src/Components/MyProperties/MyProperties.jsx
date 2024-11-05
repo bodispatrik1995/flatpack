@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropertyList from "../PropertyList/PropertyList.jsx";
 
-function MyProperties(props) {
+function MyProperties() {
     const [myProperties, setMyProperties] = useState([]);
     useEffect(() => {
         const fetchMyProperties = async () => {
@@ -13,9 +13,16 @@ function MyProperties(props) {
                     'Accept': 'application/json',
                 }
             });
-            const foundData = await response.json();
-            console.log(foundData)
-            setMyProperties(foundData.properties)
+            if (response.ok){
+                const foundData = await response.json();
+                console.log(foundData)
+                setMyProperties(foundData.properties)
+            }
+            else{
+                return (
+                    <h1>You dont have any properties yet!</h1>
+                )
+            }
         }
         fetchMyProperties()
     }, []);
