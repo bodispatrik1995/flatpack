@@ -6,7 +6,7 @@ function DeleteButton(props) {
     const navigate = useNavigate()
     const fetchDeleteProperty = async () => {
         console.log(propertyId.id)
-        const response = await fetch(`http://127.0.0.1:8000/api/deleteProperty/${propertyId.id}`, {
+        const response = await fetch(`/server/api/deleteProperty/${propertyId.id}`, {
             method: "DELETE",
             headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}
         })

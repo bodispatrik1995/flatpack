@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {Button, Input} from "@material-tailwind/react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 function UploadImages() {
     const [imageFiles, setImageFiles] = useState([]);
@@ -12,7 +12,7 @@ function UploadImages() {
         setImageFiles([...e.target.files]);
     };
 
-    // Fetch and upload multiple images
+
     const handleUpload = async (e) => {
         e.preventDefault();
 
@@ -31,7 +31,7 @@ function UploadImages() {
 
         formData.append('property_id', propertyId);
 
-        const response = await fetch('http://127.0.0.1:8000/api/upload_image', {
+        const response = await fetch('/server/api/upload_image', {
             method: "POST",
             headers: {
                 "Accept": "application/json",
@@ -44,7 +44,7 @@ function UploadImages() {
         console.log(data);
 
         if (response.ok) {
-           alert("The pictures uploaded")
+            alert("The pictures uploaded")
             // You can navigate somewhere after successful upload
         } else {
             console.log("Error in uploading images", data);
@@ -67,7 +67,7 @@ function UploadImages() {
             </form>
             <div>
 
-                <Link to={`/property/${propertyId}`} >
+                <Link to={`/property/${propertyId}`}>
                     <Button onClick={() => localStorage.setItem('propertyId', propertyId)}>
                         Finish
                     </Button>

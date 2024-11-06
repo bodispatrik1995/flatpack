@@ -23,7 +23,7 @@ function LogInForm() {
         setErrorMessage('');
         setLoading(true);
         console.log('loading state is: ' + loading);
-            fetch('s/api/user/login', {
+            fetch('/server/api/user/login', {
                 method : 'POST',
                 headers : {
                     "Content-type" : "application/json"

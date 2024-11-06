@@ -5,7 +5,7 @@ function MyProperties() {
     const [myProperties, setMyProperties] = useState([]);
     useEffect(() => {
         const fetchMyProperties = async () => {
-            const response = await fetch('http://127.0.0.1:8000/api/properties/myproperties', {
+            const response = await fetch('/server/api/properties/myproperties', {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('userToken')}`,

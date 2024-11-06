@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
-import {Input, Select, Option} from "@material-tailwind/react"
+import {Input, Option, Select} from "@material-tailwind/react"
 
 function Searchbar(props) {
     const [queryParams, setQueryParams] = useSearchParams();
@@ -9,7 +9,7 @@ function Searchbar(props) {
     useEffect(() => {
         const fetchPropertyTypes = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/properties/types');
+                const response = await fetch('/server/api/properties/types');
                 const foundData = await response.json();
                 setTypes(foundData);
             } catch (error) {
@@ -25,7 +25,7 @@ function Searchbar(props) {
         const fetchProperties = async (search) => {
             try {
                 clickChange(props.page)
-                const response = await fetch(`http://127.0.0.1:8000/api/properties/search?${search}`);
+                const response = await fetch(`/server/api/properties/search?${search}`);
                 const foundData = await response.json()
                 props.changePageNumber(foundData.pageNumber)
                 props.changeProperties(foundData.properties);

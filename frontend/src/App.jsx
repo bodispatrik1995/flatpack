@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import './Components/Css/App.css'
 import './Components/Css/SystemStyles.css'
 import './Components/Css/gallery.css';
@@ -13,6 +13,7 @@ import PropertyCard from "./Components/Property/PropertyCard.jsx";
 import UploadImages from "./Components/Property/UploadImages.jsx";
 import MyFavorites from "./Components/Favorites/MyFavorites.jsx";
 import MyProperties from "./Components/MyProperties/MyProperties.jsx";
+
 //import Inbox from "./Components/Inbox.jsx;
 
 function App() {
@@ -20,8 +21,7 @@ function App() {
     const [username, setUsername] = useState(localStorage.getItem('username'))
     const [propertyId, setPropertyId] = useState(localStorage.getItem('propertyId'));
     window.addEventListener("storage", () => {
-        // When local storage changes, dump the list to
-        // the console.
+
         setUser(localStorage.getItem('userToken'))
         setPropertyId(localStorage.getItem('propertyId'))
         setUsername(localStorage.getItem('username'))
@@ -31,7 +31,7 @@ function App() {
         <BrowserRouter>
             <Header user={user} username={username}></Header>
             <Routes>
-                <Route path={'/'} element={<MainPage/>} />
+                <Route path={'/'} element={<MainPage/>}/>
                 <Route path={'/login'} element={<LogInForm/>}/>
                 <Route path={'/upload'} element={<UploadFrom/>}/>
                 <Route path={'/upload/images/:id'} element={<UploadImages/>}/>
@@ -46,4 +46,5 @@ function App() {
         </BrowserRouter>
     )
 }
+
 export default App

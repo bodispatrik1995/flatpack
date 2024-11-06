@@ -10,7 +10,7 @@ export default function ImageGallery(props) {
 
     useEffect(() => {
         const fetchImages = async () => {
-            const imagesPromise = await fetch(`http://127.0.0.1:8000/api/images/${propertyId.id}`,
+            const imagesPromise = await fetch(`/server/api/images/${propertyId.id}`,
                 {
                     headers : {
                         'Authorization': `Bearer ${localStorage.getItem('userToken')}`

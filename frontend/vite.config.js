@@ -13,10 +13,10 @@ export default defineConfig({
   server: {
     proxy: {
       // Proxy API requests to Laravel backend
-      '/s': {
-        target: 'http://backend:80', // Your Laravel backend URL
+      '/server': {
+        target: 'http://backend:8000', // Your Laravel backend URL
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/p/, ''),
+        rewrite: (path) => path.replace(/^\/server/, ''),
       },
     },
   },

@@ -17,16 +17,16 @@ export default function RegisterForm() {
         e.preventDefault();
         setLoading(true);
         setResponseMessages(null);
-        fetch('s/api/user/register', {
+        fetch('/server/api/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'username' : username,
-                'email' : email,
-                'password' : password,
-                'password_confirmation' : passwordAgain
+                'username': username,
+                'email': email,
+                'password': password,
+                'password_confirmation': passwordAgain
             }),
         })
             .then((response) => {
@@ -36,8 +36,8 @@ export default function RegisterForm() {
                 if (info.status) {
                     console.log("Registration was successful!");
                     setResponseMessages({
-                        type : 'confirm',
-                        messages : ['Registration successful!']
+                        type: 'confirm',
+                        messages: ['Registration successful!']
                     })
                     console.log(info)
                     console.log(info.newUserId)
@@ -48,8 +48,8 @@ export default function RegisterForm() {
                     console.log("Registration failed:", info);
                     const errors = Object.values(info.errors);
                     setResponseMessages({
-                        type : 'error',
-                        messages : errors
+                        type: 'error',
+                        messages: errors
                     });
                 }
             })
@@ -81,25 +81,11 @@ export default function RegisterForm() {
 
     return (
         <div>
-            {/*<form onSubmit={handleSubmit}>*/}
-            {/*    <label htmlFor="register-username-input">Username</label>*/}
-            {/*    <input type="text" name={'username'} id={'register-username-input'} required onChange={setInfo}/>*/}
-            {/*    <br/>*/}
-            {/*    <label htmlFor="register-email-input">E-mail</label>*/}
-            {/*    <input type="email" name={'email'} id={'register-email-input'} required onChange={setInfo}/>*/}
-            {/*    <br/>*/}
-            {/*    <label htmlFor="register-password-input">Password</label>*/}
-            {/*    <input type="password" name={'password'} id={'register-password-input'} required onChange={setInfo}/>*/}
-            {/*    <br/>*/}
-            {/*    <label htmlFor="register-password-confirm-input">Password again</label>*/}
-            {/*    <input type="password" name={'password_confirmation'} id={'register-password-confirm-input'} required onChange={setInfo}/>*/}
-            {/*    <br/>*/}
-            {/*    <input type="submit" value="Register"/>*/}
-            {/*</form>*/}
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-6">
-                    <label htmlFor="register-username-input" className="block mb-2 text-4xl font-medium text-gray-900 dark:text-white">Username: </label>
+                    <label htmlFor="register-username-input"
+                           className="block mb-2 text-4xl font-medium text-gray-900 dark:text-white">Username: </label>
                     <input type="text" id="register-username-input"
                            onChange={setInfo}
                            name={'username'}
@@ -107,7 +93,8 @@ export default function RegisterForm() {
                            placeholder="john.doe112" required/>
                 </div>
                 <div className="mb-6">
-                    <label htmlFor="register-email-input" className="block mb-2 text-4xl font-medium text-gray-900 dark:text-white">Email
+                    <label htmlFor="register-email-input"
+                           className="block mb-2 text-4xl font-medium text-gray-900 dark:text-white">Email
                         address: </label>
                     <input type="email" id="register-email-input" name={'email'}
                            onChange={setInfo}

@@ -15,7 +15,7 @@ export function CardDefault(props) {
     const currencyPrice = currencyFormat(props.price)
     const imgUrl = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/image/${props.id}`);
+            const response = await fetch(`/server/api/image/${props.id}`);
             const data = await response.json();
 
             if (response.ok && data.success) {

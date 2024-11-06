@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Input, Select, Option } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import {Input, Option, Select} from "@material-tailwind/react";
+import {useNavigate} from "react-router-dom";
 
 function UploadForm(props) {
     const token = localStorage.getItem('userToken');
@@ -25,7 +25,7 @@ function UploadForm(props) {
     });
 
     const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+        const {name, value, type, checked} = event.target;
         setFormValues(prevValues => ({
             ...prevValues,
             [name]: type === 'checkbox' ? checked : value,
@@ -41,7 +41,7 @@ function UploadForm(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch('http://127.0.0.1:8000/api/add/property', {
+        const response = await fetch('/server/api/add/property', {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -55,7 +55,7 @@ function UploadForm(props) {
         const propertyID = data.propertyId;
         if (response.ok) {
             console.log("Property uploaded successfully");
-            if(propertyID) {
+            if (propertyID) {
                 navigate(`/upload/images/${propertyID}`);
             }
         } else {

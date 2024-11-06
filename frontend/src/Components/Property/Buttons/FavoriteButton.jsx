@@ -6,15 +6,15 @@ function FavoriteButton(props) {
 
     useEffect(() => {
         const fetchIsItIn = async () => {
-            const response = await fetch('http://127.0.0.1:8000/api/favorites/isin', {
+            const response = await fetch('/server/api/favorites/isin', {
                 method: "POST",
-                headers : {
+                headers: {
                     'Authorization': `Bearer ${token}`,
-                    "Content-type" : "application/json",
+                    "Content-type": "application/json",
                     'Accept': 'application/json',
                 },
-                body : JSON.stringify({
-                    property_id : props.property_id
+                body: JSON.stringify({
+                    property_id: props.property_id
                 })
             });
             const found = await response.json();
@@ -24,17 +24,18 @@ function FavoriteButton(props) {
         }
         fetchIsItIn()
     }, []);
-    async function fetchAddFavorites (property_id){
+
+    async function fetchAddFavorites(property_id) {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/favorites`, {
+            const response = await fetch(`/server/api/favorites`, {
                 method: "POST",
-                headers : {
+                headers: {
                     'Authorization': `Bearer ${token}`,
-                    "Content-type" : "application/json",
+                    "Content-type": "application/json",
                     'Accept': 'application/json',
                 },
-                body : JSON.stringify({
-                    property_id : property_id
+                body: JSON.stringify({
+                    property_id: property_id
                 })
             });
             const foundData = await response.json();
@@ -43,17 +44,18 @@ function FavoriteButton(props) {
             console.error('Error fetching property types:', error);
         }
     }
-    async function fetchDeleteFavorites (property_id){
+
+    async function fetchDeleteFavorites(property_id) {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/favorites/delete`, {
+            const response = await fetch(`/server/api/favorites/delete`, {
                 method: "POST",
-                headers : {
+                headers: {
                     'Authorization': `Bearer ${token}`,
-                    "Content-type" : "application/json",
+                    "Content-type": "application/json",
                     'Accept': 'application/json',
                 },
-                body : JSON.stringify({
-                    property_id : property_id
+                body: JSON.stringify({
+                    property_id: property_id
                 })
             });
             const foundData = await response.json();
@@ -62,11 +64,12 @@ function FavoriteButton(props) {
             console.error('Error fetching property types:', error);
         }
     }
-   async function favoriteChange (){
-        if(!favoriteClicked){
-           await fetchAddFavorites(props.property_id)
+
+    async function favoriteChange() {
+        if (!favoriteClicked) {
+            await fetchAddFavorites(props.property_id)
         } else {
-          await  fetchDeleteFavorites(props.property_id)
+            await fetchDeleteFavorites(props.property_id)
         }
         setFavoriteClicked(!favoriteClicked);
 

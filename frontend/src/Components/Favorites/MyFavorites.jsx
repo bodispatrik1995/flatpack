@@ -6,7 +6,7 @@ function MyFavorites(props) {
     const token = localStorage.getItem('userToken');
     useEffect(() => {
         const fetchProperties = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/api/user/favorites`, {
+            const response = await fetch(`/server/api/user/favorites`, {
                 method: 'POST',
                 headers : {
                     'Authorization': `Bearer ${token}`,

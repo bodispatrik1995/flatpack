@@ -1,8 +1,8 @@
-export default function SystemMessage({message, messageType = 'default'}){
+export default function SystemMessage({message, messageType = 'default'}) {
     const messageTypes = {
-        'error' : 'error',
-        'confirm' : 'confirm',
-        'default' : ''
+        'error': 'error',
+        'confirm': 'confirm',
+        'default': ''
     };
 
     return (

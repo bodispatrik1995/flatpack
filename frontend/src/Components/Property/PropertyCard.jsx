@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Loading from "../Loading.jsx";
 import ImageGallery from "./ImageGallery.jsx";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import FavoriteButton from "./Buttons/FavoriteButton.jsx";
 import MessageInput from "./MessageInput.jsx";
 import DeleteButton from "./Buttons/DeleteButton.jsx";
 
 function PropertyCard() {
-    const { id: propertyId } = useParams();
+    const {id: propertyId} = useParams();
     const [property, setProperty] = useState(null);
     const [owner, setOwner] = useState(null);
     const [error, setError] = useState(null);
@@ -15,13 +15,13 @@ function PropertyCard() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const propertyResponse = await fetch(`http://127.0.0.1:8000/api/property/${propertyId}`,
+                const propertyResponse = await fetch(`/server/api/property/${propertyId}`,
                     {
-                        headers: { 'Authorization': `Bearer ${localStorage.getItem('userToken')}` }
+                        headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}
                     })
 
 
-                if (!propertyResponse.ok ) {
+                if (!propertyResponse.ok) {
                     throw new Error('Failed to fetch property or owner');
                 }
 
@@ -37,30 +37,28 @@ function PropertyCard() {
         };
 
 
-
         fetchProperty();
 
     }, [propertyId]);
 
     useEffect(() => {
-        const fetchOwner = async (ownerID)=>{
+        const fetchOwner = async (ownerID) => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/owner/${ownerID}`,
+                const response = await fetch(`/server/api/owner/${ownerID}`,
                     {
-                        headers: { 'Authorization': `Bearer ${localStorage.getItem('userToken')}` }
+                        headers: {'Authorization': `Bearer ${localStorage.getItem('userToken')}`}
                     });
                 const ownerData = await response.json();
                 setOwner(ownerData.user);
-            }catch (error){
+            } catch (error) {
                 console.error('Error fetching data:', error);
                 setError('Failed to load  owner information');
             }
         }
-        if(property){
+        if (property) {
             fetchOwner(property.user_id);
         }
     }, [property]);
-
 
 
     const currencyFormat = (num) => num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -72,7 +70,7 @@ function PropertyCard() {
 
     if (error) return <div>{error}</div>;
 
-    if (!property) return <Loading />;
+    if (!property) return <Loading/>;
 
     return (
         <div className="property-card">
@@ -80,7 +78,7 @@ function PropertyCard() {
                 {/* Property Images */}
                 <div className="row-span-3 col-span-2 property-images apply-square-background">
                     <h1>Property images</h1>
-                    <ImageGallery />
+                    <ImageGallery/>
                 </div>
 
 
@@ -93,27 +91,54 @@ function PropertyCard() {
                 {/* Quick Actions */}
                 <div className="property-quick-actions apply-square-background">
                     <button className="button">Buy</button>
-                    {localStorage.getItem('userToken') && <FavoriteButton property_id={propertyId} />}
-                    {checkOwnerIsLoggedIn() && <DeleteButton />}
+                    {localStorage.getItem('userToken') && <FavoriteButton property_id={propertyId}/>}
+                    {checkOwnerIsLoggedIn() && <DeleteButton/>}
                 </div>
 
                 {/* Message Input */}
-                {owner && <MessageInput owner={owner} />}
+                {owner && <MessageInput owner={owner}/>}
 
                 {/* Property Data Table */}
                 <div className="col-span-2 property-data apply-square-background">
                     <h1>Property data</h1>
                     <table className="table-auto property-data-table">
                         <tbody>
-                        <tr><th>Address</th><td>{property.city}, {property.street}, {property.house_number}</td></tr>
-                        <tr><th>Size</th><td>{property.size} m2</td></tr>
-                        <tr><th>Rooms</th><td>{property.rooms}</td></tr>
-                        <tr><th>Bathrooms</th><td>{property.bathroom_count}</td></tr>
-                        <tr><th>Stories</th><td>{property.floor}</td></tr>
-                        <tr><th>Build material</th><td>{property.building_material}</td></tr>
-                        <tr><th>Type</th><td>{property.type}</td></tr>
-                        <tr><th>Plot size</th><td>{property.plot_size}</td></tr>
-                        <tr><th>Garages</th><td>{property.garage}</td></tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{property.city}, {property.street}, {property.house_number}</td>
+                        </tr>
+                        <tr>
+                            <th>Size</th>
+                            <td>{property.size} m2</td>
+                        </tr>
+                        <tr>
+                            <th>Rooms</th>
+                            <td>{property.rooms}</td>
+                        </tr>
+                        <tr>
+                            <th>Bathrooms</th>
+                            <td>{property.bathroom_count}</td>
+                        </tr>
+                        <tr>
+                            <th>Stories</th>
+                            <td>{property.floor}</td>
+                        </tr>
+                        <tr>
+                            <th>Build material</th>
+                            <td>{property.building_material}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{property.type}</td>
+                        </tr>
+                        <tr>
+                            <th>Plot size</th>
+                            <td>{property.plot_size}</td>
+                        </tr>
+                        <tr>
+                            <th>Garages</th>
+                            <td>{property.garage}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
