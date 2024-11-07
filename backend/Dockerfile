@@ -1,4 +1,3 @@
-
 FROM php:8.2-apache as web
 
 # Install Additional System Dependencies
@@ -21,6 +20,15 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+# Modify Apache to listen on port 8000
+RUN echo "Listen 8000" >> /etc/apache2/ports.conf
+
+# Modify the default virtual host to use port 8000
+RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:8000>/' /etc/apache2/sites-available/000-default.conf
+
+# Expose port 8000
+EXPOSE 8000
+
 # Copy the application code
 COPY . /var/www/html
 
@@ -33,6 +41,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install project dependencies
 RUN composer install
 
-
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Migrate and start the server in a single command
+ENTRYPOINT ["sh", "-c", "until php artisan migrate; do echo 'Waiting for database...'; sleep 5; done && apache2-foreground"]

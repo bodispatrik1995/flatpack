@@ -1,24 +1,35 @@
 services:
+    db:
+        image: mysql:8.0
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_DATABASE: flatpack
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+
+    backend:
+        build: ./backend
+        ports:
+            - "8000:8000"
+        depends_on:
+            db:
+                condition: service_healthy
+        environment:
+            DB_HOST: db
+            DB_DATABASE: flatpack
+            DB_USERNAME: root
+            DB_PASSWORD:
+        entrypoint: ["sh", "-c", "until php artisan migrate; do echo 'Waiting for database...'; sleep 5; done && apache2-foreground"]
+        restart: on-failure
+
     frontend:
         build: ./frontend
         ports:
-            -   5173:5173
+            - "5173:5173"
         depends_on:
-            -   backend
-    backend:
-        build: ./backend
-
-        ports:
-            -   8000:80
-        depends_on:
-            -   db
-        env_file:
-            - ./backend/.env
-    db:
-        image: mysql
-        ports:
-            -   3306:3306
-        environment:
-            MYSQL_ALLOW_EMPTY_PASSWORD: true
-            MYSQL_DATABASE: el_projekte_grande
-
+            - backend
