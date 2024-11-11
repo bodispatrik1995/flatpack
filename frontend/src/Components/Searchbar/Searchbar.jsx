@@ -63,13 +63,14 @@ function Searchbar(props) {
 
     }
     return (
+
         <form className="flex justify-center">
 
             <Select color={'purple'} label={'Select Type'} name={'type'} value={selectedType}
                     onChange={handleChangeDropDown}>
-                {types ? types.map((type) => {
+                {types && types.length > 0 ? types.map((type) => {
                     return <Option value={type} key={type}>{type}</Option>
-                }) : <Option> Nothing</Option>}
+                }) : <Option> There is no properties with this parameter</Option>}
             </Select>
             <Input color={"black"} label={'City'} name={'city'} value={formData.city || ''} type={"text"}
                    onChange={handleChange}/>

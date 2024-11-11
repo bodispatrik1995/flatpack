@@ -4,7 +4,7 @@ import PropertyList from "./PropertyList/PropertyList.jsx";
 import Pagination from "./Pagination.jsx";
 
 function MainPage(props) {
-    const [properties, setProperties] = useState([]);
+    const [properties, setProperties] = useState(null);
     const [page, setPage] = useState(1)
     const [pageNumber, setPageNumber] = useState(1)
     return (
