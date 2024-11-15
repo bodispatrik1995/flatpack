@@ -24,6 +24,7 @@ services:
             DB_DATABASE: flatpack
             DB_USERNAME: root
             DB_PASSWORD:
+
         entrypoint: ["sh", "-c", "until php artisan migrate; do echo 'Waiting for database...'; sleep 5; done && apache2-foreground"]
         restart: on-failure
 

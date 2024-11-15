@@ -15,7 +15,6 @@ RUN a2enmod rewrite
 RUN docker-php-ext-install pdo_mysql zip
 
 # Configure Apache DocumentRoot to point to Laravel's public directory
-# and update Apache configuration files
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -39,10 +38,15 @@ WORKDIR /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install project dependencies
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Create the storage symlink
+RUN php artisan storage:link
+
+
 
 # Migrate and start the server in a single command
 ENTRYPOINT ["sh", "-c", "until php artisan migrate; do echo 'Waiting for database...'; sleep 5; done && apache2-foreground"]
