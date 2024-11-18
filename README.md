@@ -39,20 +39,15 @@ To run this project, make sure you have Docker and Docker Compose installed.
     git clone https://github.com/your-username/flat-pack.git
     cd flat-pack
     ```
+2. **Create the .env file based on the .envExample file**
 
-2. **Build and Start the Docker Containers**:
+3. **Build and Start the Docker Containers**:
     ```bash
     docker-compose up --build
     ```
 
    This command will build and start the Docker containers for the frontend, backend, and MySQL database.
 
-3. **Run Migrations**:
-   Once the containers are up and running, execute the Laravel migrations to set up the database tables.
-
-    ```bash
-    docker-compose exec backend php artisan migrate
-    ```
 
 4. **Seed the Database**:
    Optionally, seed the database with initial data.
