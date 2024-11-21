@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import PropertyList from "../PropertyList/PropertyList.jsx";
+import {useNavigate} from "react-router-dom";
 
 function MyFavorites(props) {
     const [favProperties, setFavProperties] = useState([]);
     const token = localStorage.getItem('userToken');
+    let navigate = useNavigate();
     useEffect(() => {
         const fetchProperties = async () => {
+
             const response = await fetch(`/server/api/user/favorites`, {
                 method: 'POST',
                 headers : {
@@ -14,9 +17,13 @@ function MyFavorites(props) {
                     'Accept': 'application/json',
                 },
             });
-            const foundData = await response.json()
-            setFavProperties(foundData)
-            console.log(foundData)
+           if(response.status === 401) {
+               navigate('/login');
+           }
+                const foundData = await response.json()
+                setFavProperties(foundData)
+
+
         }
         fetchProperties()
     }, []);
