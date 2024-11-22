@@ -40,9 +40,9 @@ class ImageService
         return response()->json($images);
     }
 
-    public function deletePicturesForProperty($property_id){
+    public function deletePicturesForProperty($property_id):bool{
 
-        Image::where('property_id', $property_id) -> delete();
-        return true;
+      return  Image::where('property_id', $property_id) -> delete();
+
     }
 }

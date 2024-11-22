@@ -103,7 +103,7 @@ class PropertyController extends Controller
         $deletedImage = $this->imageService->deletePicturesForProperty($id);
         $deletedProperty = $this->propertyService->delete($id);
 
-        if ($deletedProperty && $deletedImage) {
+        if ($deletedProperty ) {
             return response()->json([
                 'success' => true,
                 'message' => 'Property deleted successfully'
