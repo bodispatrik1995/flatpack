@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\ImageController;
 use App\Models\Property;
 use Illuminate\Http\Request;
 
 class PropertyService
 {
+
     public function getAll()
     {
         return Property::all();

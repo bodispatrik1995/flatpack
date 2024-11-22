@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\ImageService;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
     private PropertyService $propertyService;
-
-    public function __construct()
+    private ImageService $imageService;
+    public function __construct(PropertyService $propertyService, ImageService $imageService)
     {
-        $this->propertyService = new PropertyService();
+        $this->propertyService = $propertyService;
+        $this->imageService = $imageService;
     }
 
 
@@ -98,8 +100,10 @@ class PropertyController extends Controller
     {
 
 //            $id = $request->id;
-        $succes = $this->propertyService->delete($id);
-        if ($succes) {
+        $deletedImage = $this->imageService->deletePicturesForProperty($id);
+        $deletedProperty = $this->propertyService->delete($id);
+
+        if ($deletedProperty && $deletedImage) {
             return response()->json([
                 'success' => true,
                 'message' => 'Property deleted successfully'
